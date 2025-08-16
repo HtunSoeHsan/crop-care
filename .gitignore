@@ -1,0 +1,291 @@
+# Dependencies
+node_modules/
+*/node_modules/
+.pnp
+.pnp.js
+
+# Production builds
+/backend/dist/
+/frontend/.next/
+/frontend/out/
+build/
+dist/
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.*.local
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
+
+# nyc test coverage
+.nyc_output
+
+# Dependency directories
+jspm_packages/
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# parcel-bundler cache (https://parceljs.org/)
+.cache
+.parcel-cache
+
+# Next.js build output
+.next
+out
+
+# Nuxt.js build / generate output
+.nuxt
+
+# Gatsby files
+.cache/
+public
+
+# Storybook build outputs
+.out
+.storybook-out
+
+# Temporary folders
+tmp/
+temp/
+
+# Editor directories and files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# ML Models and Large Files (>100MB potential)
+# TensorFlow models
+*.h5
+*.pb
+*.tflite
+*.onnx
+*.pkl
+*.joblib
+*.model
+/backend/models/*/weights.bin
+/backend/models/*/model.json
+saved_model/
+checkpoints/
+*.ckpt
+*.ckpt.*
+
+# Training data and datasets
+/backend/training_data/
+/backend/data/datasets/
+*.zip
+*.tar.gz
+*.tar.bz2
+*.7z
+*.rar
+
+# Large media files
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.wmv
+*.flv
+*.webm
+*.m4v
+*.3gp
+*.iso
+*.dmg
+
+# Large image collections (keep individual images but exclude bulk folders)
+/backend/uploads/bulk/
+/backend/uploads/training/
+/backend/uploads/datasets/
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+*.mdb
+*.accdb
+
+# Flutter/Dart specific
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.so
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# The .vscode folder contains launch configuration and tasks you configure in
+# VS Code which you may wish to be included in version control, so this line
+# is commented out by default.
+#.vscode/
+
+# Flutter/Dart/Pub related
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+/build/
+
+# Web related
+lib/generated_plugin_registrant.dart
+
+# Symbolication related
+app.*.symbols
+
+# Obfuscation related
+app.*.map.json
+
+# Android Studio will place build artifacts here
+/android/app/debug
+/android/app/profile
+/android/app/release
+
+# Gradle files
+.gradle/
+/build/
+/android/build/
+/android/app/build/
+/android/.gradle/
+/android/local.properties
+/android/key.properties
+*.jks
+*.keystore
+
+# iOS related
+/ios/build/
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+*.xcuserstate
+project.xcworkspace/
+xcuserdata/
+DerivedData/
+*.moved-aside
+*.xccheckout
+*.xcscmblueprint
+ios/Pods/
+ios/Podfile.lock
+ios/Runner.xcworkspace/
+
+# macOS related
+/macos/build/
+
+# Windows related
+/windows/build/
+
+# Linux related
+/linux/build/
+
+# Python related (if any Python scripts)
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# PyTorch models
+*.pth
+*.pt
+
+# Large backup files
+*.bak
+*.backup
+*.old
+*.orig
+
+# Compressed files that might be large
+*.gz
+*.bz2
+*.xz
+*.lzma
+
+# Video processing temp files
+*.tmp
+*.temp
+
+# Large configuration dumps
+*.dump
+*.sql
+
+# Package files
+*.deb
+*.rpm
+*.pkg
+*.dmg
+*.msi
+*.exe
+
+# Large documentation files
+*.pdf
+*.doc
+*.docx
+*.ppt
+*.pptx
+
+# Ignore specific large directories that might be created
+/backend/temp_uploads/
+/backend/processed_images/
+/backend/model_checkpoints/
+/frontend/public/large_assets/
+/mobile/assets/large/

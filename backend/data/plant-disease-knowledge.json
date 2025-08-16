@@ -1,0 +1,129 @@
+[
+  {
+    "id": "powdery-mildew",
+    "disease": "Powdery Mildew",
+    "symptoms": [
+      "White powdery spots on leaves",
+      "Yellowing leaves",
+      "Stunted growth"
+    ],
+    "causes": [
+      "High humidity",
+      "Poor air circulation",
+      "Overcrowded plants"
+    ],
+    "treatments": [
+      "Remove infected leaves",
+      "Apply neem oil",
+      "Improve air circulation"
+    ],
+    "prevention": [
+      "Proper spacing",
+      "Avoid overhead watering",
+      "Regular pruning"
+    ],
+    "plantTypes": [
+      "roses",
+      "cucumbers",
+      "zucchini",
+      "squash"
+    ],
+    "severity": "medium",
+    "content": "Powdery mildew is a fungal disease that appears as white powdery spots on plant leaves. It thrives in humid conditions with poor air circulation. Early detection and treatment are crucial for preventing spread."
+  },
+  {
+    "id": "leaf-spot",
+    "disease": "Leaf Spot Disease",
+    "symptoms": [
+      "Brown or black spots on leaves",
+      "Yellow halos around spots",
+      "Leaf drop"
+    ],
+    "causes": [
+      "Fungal infection",
+      "Bacterial infection",
+      "Poor drainage"
+    ],
+    "treatments": [
+      "Remove infected leaves",
+      "Apply fungicide",
+      "Improve drainage"
+    ],
+    "prevention": [
+      "Avoid overhead watering",
+      "Clean garden tools",
+      "Proper spacing"
+    ],
+    "plantTypes": [
+      "tomatoes",
+      "peppers",
+      "lettuce",
+      "spinach"
+    ],
+    "severity": "medium",
+    "content": "Leaf spot diseases are caused by various fungi and bacteria. They create circular or irregular spots on leaves, often with yellow halos. Proper sanitation and cultural practices are key to prevention."
+  },
+  {
+    "id": "root-rot",
+    "disease": "Root Rot",
+    "symptoms": [
+      "Wilting despite adequate water",
+      "Yellowing leaves",
+      "Soft brown roots"
+    ],
+    "causes": [
+      "Overwatering",
+      "Poor drainage",
+      "Fungal infection"
+    ],
+    "treatments": [
+      "Improve drainage",
+      "Reduce watering",
+      "Apply fungicide"
+    ],
+    "prevention": [
+      "Well-draining soil",
+      "Proper watering schedule",
+      "Avoid overwatering"
+    ],
+    "plantTypes": [
+      "houseplants",
+      "tomatoes",
+      "peppers",
+      "herbs"
+    ],
+    "severity": "high",
+    "content": "Root rot is a serious condition caused by overwatering and poor drainage. It affects the plant's ability to absorb water and nutrients, leading to wilting and eventual death if not treated promptly."
+  },
+  {
+    "id": "blight",
+    "disease": "Blight",
+    "symptoms": [
+      "Rapid wilting",
+      "Brown lesions on stems",
+      "Dark spots on leaves"
+    ],
+    "causes": [
+      "Fungal infection",
+      "Wet conditions",
+      "Poor air circulation"
+    ],
+    "treatments": [
+      "Remove infected plants",
+      "Apply fungicide",
+      "Improve conditions"
+    ],
+    "prevention": [
+      "Crop rotation",
+      "Proper spacing",
+      "Avoid overhead watering"
+    ],
+    "plantTypes": [
+      "tomatoes",
+      "potatoes",
+      "peppers"
+    ],
+    "severity": "high",
+    "content": "Blight is a devastating fungal disease that can quickly kill plants. It spreads rapidly in wet, humid conditions and requires immediate action to prevent widespread damage."
+  }
+]
