@@ -15,6 +15,7 @@ import plantCareRoutes from './routes/plant-care.routes';
 import plantCollectionRoutes from './routes/plant-collection.routes';
 import chatbotRoutes from './routes/chatbot.routes';
 import searchRoutes from './routes/search.routes';
+import adminRoutes from './routes/admin'; // Import admin routes
 import cookieParser from 'cookie-parser'
 // Import passport (you must have this file)
 import passport from 'passport';
@@ -66,7 +67,7 @@ app.use('/api/plant-care', plantCareRoutes);
 app.use('/api/plant-collection', plantCollectionRoutes);
 app.use('/api/chatbot', chatbotRoutes);
 app.use('/api/search', searchRoutes);
-
+app.use('/api/admin', adminRoutes); // Register admin routes
 // Error handling middleware
 app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
   console.error('Unhandled error:', err.stack);
