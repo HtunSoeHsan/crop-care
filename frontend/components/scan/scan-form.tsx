@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Loader2, Upload, X, Camera, AlertCircle, Leaf, MessageCircle } from 'lucide-react';
+import { Loader2, Upload, X, Camera, AlertCircle, Leaf, MessageCircle, RotateCcw, Check } from 'lucide-react';
 import ScanResults from '@/components/scan/scan-results-clean';
 import { useTranslations } from 'next-intl';
 import { ApiService, ScanResult } from '@/lib/api-service';
@@ -19,6 +19,10 @@ const ScanForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [results, setResults] = useState<ScanResult | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [showCamera, setShowCamera] = useState(false);
+  const [stream, setStream] = useState<MediaStream | null>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -35,8 +39,68 @@ const ScanForm = () => {
     setSelectedImage(null);
     setImageFile(null);
     setResults(null);
-    setScanResults(null); // Clear scan results
+    setScanResults(null);
+    stopCamera();
   };
+
+  const startCamera = async () => {
+    try {
+      const mediaStream = await navigator.mediaDevices.getUserMedia({
+        video: { 
+          facingMode: 'environment',
+          width: { ideal: 1280 },
+          height: { ideal: 720 }
+        }
+      });
+      setStream(mediaStream);
+      setShowCamera(true);
+      
+      // Set video source after state update
+      setTimeout(() => {
+        if (videoRef.current) {
+          videoRef.current.srcObject = mediaStream;
+          videoRef.current.play();
+        }
+      }, 100);
+    } catch (error) {
+      console.error('Error accessing camera:', error);
+      setError('Unable to access camera. Please check permissions.');
+    }
+  };
+
+  const stopCamera = () => {
+    if (stream) {
+      stream.getTracks().forEach(track => track.stop());
+      setStream(null);
+    }
+    setShowCamera(false);
+  };
+
+  const capturePhoto = useCallback(() => {
+    if (videoRef.current && canvasRef.current) {
+      const video = videoRef.current;
+      const canvas = canvasRef.current;
+      const context = canvas.getContext('2d');
+      
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      
+      if (context) {
+        context.drawImage(video, 0, 0);
+        canvas.toBlob((blob) => {
+          if (blob) {
+            const file = new File([blob], 'camera-capture.jpg', { type: 'image/jpeg' });
+            setImageFile(file);
+            const imageUrl = URL.createObjectURL(blob);
+            setSelectedImage(imageUrl);
+            setResults(null);
+            setScanResults(null);
+            stopCamera();
+          }
+        }, 'image/jpeg', 0.9);
+      }
+    }
+  }, [setScanResults]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -80,7 +144,7 @@ const ScanForm = () => {
         <div className="space-y-4">
           <Label htmlFor="plant-image" className="text-lg font-semibold text-slate-900">{t('uploadPlantImage')}</Label>
           
-          {!selectedImage ? (
+          {!selectedImage && !showCamera ? (
             <div className="border-2 border-dashed border-slate-300 rounded-2xl p-12 text-center hover:border-primary/50 transition-colors duration-300">
               <Input
                 id="plant-image"
@@ -89,11 +153,8 @@ const ScanForm = () => {
                 onChange={handleImageChange}
                 className="hidden"
               />
-              <Label
-                htmlFor="plant-image"
-                className="flex flex-col items-center justify-center h-40 cursor-pointer group"
-              >
-                <div className="p-4 bg-primary/10 rounded-full mb-4 group-hover:bg-primary/20 transition-colors duration-300">
+              <div className="flex flex-col items-center justify-center h-40">
+                <div className="p-4 bg-primary/10 rounded-full mb-4">
                   <Upload className="h-12 w-12 text-primary" />
                 </div>
                 <p className="text-lg text-slate-700 mb-2 font-medium">
@@ -103,16 +164,74 @@ const ScanForm = () => {
                   {t('supportedFormats')}
                 </p>
                 
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={() => document.getElementById("plant-image")?.click()}
-                  className="gap-2 px-8 py-3 text-base hover:bg-primary hover:text-white transition-all duration-300"
-                >
-                  <Camera className="h-5 w-5" />
-                  {t('selectImage')}
-                </Button>
-              </Label>
+                <div className="flex gap-4">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => document.getElementById("plant-image")?.click()}
+                    className="gap-2 px-6 py-3 text-base hover:bg-primary hover:text-white transition-all duration-300"
+                  >
+                    <Upload className="h-5 w-5" />
+                    Upload Photo
+                  </Button>
+                  
+                  <Button
+                    type="button"
+                    onClick={startCamera}
+                    className="gap-2 px-6 py-3 text-base bg-green-600 hover:bg-green-700 transition-all duration-300"
+                  >
+                    <Camera className="h-5 w-5" />
+                    Take Photo
+                  </Button>
+                </div>
+              </div>
+            </div>
+          ) : showCamera ? (
+            <div className="relative rounded-2xl overflow-hidden border-2 border-slate-200 shadow-lg bg-black">
+              <video
+                ref={videoRef}
+                autoPlay
+                playsInline
+                muted
+                className="w-full h-[400px] object-cover"
+                onLoadedMetadata={() => {
+                  if (videoRef.current) {
+                    videoRef.current.play();
+                  }
+                }}
+              />
+              <canvas ref={canvasRef} className="hidden" />
+              
+              <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent">
+                <div className="flex justify-center gap-4">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={stopCamera}
+                    className="gap-2 px-6 py-3 bg-white/20 border-white/30 text-white hover:bg-white/30 backdrop-blur-sm"
+                  >
+                    <X className="h-5 w-5" />
+                    Cancel
+                  </Button>
+                  
+                  <Button
+                    type="button"
+                    onClick={capturePhoto}
+                    className="gap-2 px-8 py-3 bg-white text-black hover:bg-gray-100 font-semibold"
+                  >
+                    <Camera className="h-5 w-5" />
+                    Capture
+                  </Button>
+                </div>
+              </div>
+              
+              <div className="absolute top-4 left-4 right-4">
+                <div className="bg-black/50 backdrop-blur-sm rounded-lg px-4 py-2">
+                  <p className="text-white text-sm text-center font-medium">
+                    📸 Position your plant in the frame and tap Capture
+                  </p>
+                </div>
+              </div>
             </div>
           ) : (
             <div className="relative rounded-2xl overflow-hidden border-2 border-slate-200 shadow-lg">
@@ -126,18 +245,36 @@ const ScanForm = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
               </div>
               
-              <Button
-                type="button"
-                variant="destructive"
-                size="icon"
-                className="absolute top-4 right-4 h-10 w-10 shadow-lg hover:shadow-xl transition-all duration-300"
-                onClick={handleRemoveImage}
-              >
-                <X className="h-5 w-5" />
-              </Button>
+              <div className="absolute top-4 right-4 flex gap-2">
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="icon"
+                  className="h-10 w-10 bg-white/90 hover:bg-white shadow-lg backdrop-blur-sm"
+                  onClick={() => {
+                    handleRemoveImage();
+                    startCamera();
+                  }}
+                >
+                  <RotateCcw className="h-5 w-5" />
+                </Button>
+                
+                <Button
+                  type="button"
+                  variant="destructive"
+                  size="icon"
+                  className="h-10 w-10 shadow-lg hover:shadow-xl transition-all duration-300"
+                  onClick={handleRemoveImage}
+                >
+                  <X className="h-5 w-5" />
+                </Button>
+              </div>
               
               <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent">
-                <p className="text-white font-medium text-center">Image Selected - Ready for Analysis</p>
+                <div className="flex items-center justify-center gap-2">
+                  <Check className="h-5 w-5 text-green-400" />
+                  <p className="text-white font-medium">Image Ready for Analysis</p>
+                </div>
               </div>
             </div>
           )}
