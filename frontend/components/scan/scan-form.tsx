@@ -238,7 +238,7 @@ const ScanForm = () => {
             <div className="relative rounded-2xl overflow-hidden border-2 border-slate-200 shadow-lg">
               <div className="relative aspect-video">
                 <Image
-                  src={selectedImage}
+                  src={selectedImage!}
                   alt={t('selectedPlant')}
                   fill
                   className="object-cover"
@@ -315,7 +315,7 @@ const ScanForm = () => {
         <div className="space-y-6">
           <ScanResults results={results} image={selectedImage} />
           
-          {/* Save and AI Chat Integration */}
+          {/* AI Chat Integration */}
           {results.primaryDetection && (
             <div className="bg-gradient-to-r from-green-50 to-blue-50 border border-green-200 rounded-2xl p-6">
               <div className="flex items-center justify-between">
@@ -327,16 +327,13 @@ const ScanForm = () => {
                     Get personalized advice about {results.primaryDetection.name.en} from our AI specialist
                   </p>
                 </div>
-                <div className="flex gap-3">
-                  <SaveScanButton results={{...results, imageUrl: (results as any).imageUrl}} />
-                  <Button
-                    onClick={handleAskAI}
-                    className="bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white px-6 py-3 gap-2"
-                  >
-                    <MessageCircle className="h-5 w-5" />
-                    Ask AI
-                  </Button>
-                </div>
+                <Button
+                  onClick={handleAskAI}
+                  className="bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white px-6 py-3 gap-2"
+                >
+                  <MessageCircle className="h-5 w-5" />
+                  Ask AI
+                </Button>
               </div>
             </div>
           )}

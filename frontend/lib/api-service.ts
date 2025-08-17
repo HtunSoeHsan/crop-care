@@ -557,7 +557,7 @@ export const ApiService = {
     // Try to get token from cookies first
     const cookies = document.cookie.split(';');
     const tokenCookie = cookies.find(cookie => cookie.trim().startsWith('token='));
-    
+    console.log("getAuthToken", tokenCookie);
     if (tokenCookie) {
       return tokenCookie.split('=')[1];
     }
@@ -597,11 +597,11 @@ export const ApiService = {
       const token = this.getAuthToken();
       const response = await fetch(`${API_URL}/scan-history/save`, {
         method: 'POST',
+          credentials: 'include', // 👈 required to send cookies back
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-        },
-        body: JSON.stringify({ results, imageUrl }),
+    'Content-Type': 'application/json',
+  },
+        body: JSON.stringify({ results }),
       });
 
       if (!response.ok) {

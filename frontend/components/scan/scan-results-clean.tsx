@@ -41,6 +41,7 @@ import { ScanResult, ScanDetectionResult } from '@/lib/api-service';
 import { getLocalizedProperty, isPlantHealthy } from '@/lib/utils';
 import PlantDiseaseChatbot from '@/components/chat/plant-disease-chatbot';
 import ChatTriggerButton from '@/components/chat/chat-trigger-button';
+import SaveScanButton from './save-scan-button';
 
 interface ScanResultsProps {
   results: ScanResult;
@@ -297,23 +298,29 @@ const ScanResults = ({ results, image }: ScanResultsProps) => {
                     </p>
                   </div>
                   
-                  <div className="flex flex-col sm:flex-row gap-3">
-                    <div className="text-center">
-                      <div className="text-2xl font-bold text-slate-900">{confidencePercent.toFixed(1)}%</div>
-                      <div className="text-sm text-slate-500">Confidence</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-2xl font-bold text-slate-900">
-                        {isPlantHealthy({name: displayDetection.name}) ? 'Healthy' : 'Diseased'}
+                  <div className="flex flex-col sm:flex-row gap-3 items-end">
+                    <div className="flex gap-4">
+                      <div className="text-center">
+                        <div className="text-2xl font-bold text-slate-900">{confidencePercent.toFixed(1)}%</div>
+                        <div className="text-sm text-slate-500">Confidence</div>
                       </div>
-                      <div className="text-sm text-slate-500">Status</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-2xl font-bold text-slate-900">
-                        {getLocalizedProperty(displayDetection.plantType, locale)}
+                      <div className="text-center">
+                        <div className="text-2xl font-bold text-slate-900">
+                          {isPlantHealthy({name: displayDetection.name}) ? 'Healthy' : 'Diseased'}
+                        </div>
+                        <div className="text-sm text-slate-500">Status</div>
                       </div>
-                      <div className="text-sm text-slate-500">Plant Type</div>
+                      <div className="text-center">
+                        <div className="text-2xl font-bold text-slate-900">
+                          {getLocalizedProperty(displayDetection.plantType, locale)}
+                        </div>
+                        <div className="text-sm text-slate-500">Plant Type</div>
+                      </div>
                     </div>
+                    <SaveScanButton 
+                      selectedDetection={displayDetection} 
+                      imageUrl={(results as any).imageUrl} 
+                    />
                   </div>
                 </div>
               </CardHeader>

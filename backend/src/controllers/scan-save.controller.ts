@@ -4,8 +4,10 @@ import ScanHistory from '../models/ScanHistory';
 export const saveScanResult = async (req: Request, res: Response) => {
   try {
     const userId = (req as any).user.userId;
-    const { results, imageUrl, imagePath } = req.body;
-
+    const { results } = req.body;
+    console.log('Received scan results:', results);
+    console.log("scan user:", req.user)
+    console.log("req.body:", req.body)
     if (!results || !Array.isArray(results) || results.length === 0) {
       return res.status(400).json({
         status: 'error',
@@ -19,8 +21,8 @@ export const saveScanResult = async (req: Request, res: Response) => {
 
     const scanHistory = new ScanHistory({
       userId,
-      imageUrl,
-      imagePath: imagePath || '',
+      // imageUrl,
+      // imagePath: imagePath || '',
       results: results.map((result: any) => ({
         classIndex: result.classIndex,
         name: result.name,

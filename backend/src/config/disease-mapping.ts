@@ -636,6 +636,24 @@ export const diseaseMapping: PlantDisease[] = [
           }
         ]
       }
+    ],
+    recommendations: [
+      {
+        en: 'Apply balanced fertilizer (10-10-10) in early spring and mid-summer for optimal growth',
+        my: 'အကောင်းဆုံး ကြီးထွားမှုအတွက် နွေဦးရာသီ အစောပိုင်းနှင့် နွေရာသီ အလယ်ပိုင်းတွင် မျှတသော မြေဩဇာ (10-10-10) သုံးစွဲပါ'
+      },
+      {
+        en: 'Water deeply but infrequently to encourage deep root development',
+        my: 'အမြစ်များ နက်နက်ရှိုင်ရှိုင် ကြီးထွားစေရန် နက်နက်ရှိုင်ရှိုင် ရေလောင်းပါ သို့သော် မကြာခဏ မလောင်းပါ'
+      },
+      {
+        en: 'Monitor for early signs of pest activity and implement control measures promptly',
+        my: 'ပိုးမွှားလှုပ်ရှားမှု အစောပိုင်း လက္ခဏာများကို စောင့်ကြည့်ပြီး ထိန်းချုပ်မှုများကို ချက်ချင်း အကောင်အထည်ဖော်ပါ'
+      },
+      {
+        en: 'Maintain 2-3 inch mulch layer around plants to conserve moisture and suppress weeds',
+        my: 'ရေထိန်းသိမ်းရန်နှင့် ပေါင်းပင်များ ထိန်းချုပ်ရန် အပင်များပတ်လည်တွင် လက်မ 2-3 မြေဖုံးအလွှာ ထိန်းသိမ်းပါ'
+      }
     ]
   },
   {

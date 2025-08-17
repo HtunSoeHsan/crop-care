@@ -7,36 +7,28 @@ import { ApiService, ScanResult } from '@/lib/api-service';
 import { useToast } from '@/hooks/use-toast';
 
 interface SaveScanButtonProps {
-  results: ScanResult & { imageUrl?: string };
+  selectedDetection: any;
+  imageUrl?: string;
 }
 
-export default function SaveScanButton({ results }: SaveScanButtonProps) {
+export default function SaveScanButton({ selectedDetection, imageUrl }: SaveScanButtonProps) {
   const [isSaving, setIsSaving] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   const { toast } = useToast();
-
+  console.log("selectedDetection:", selectedDetection, imageUrl)
   const handleSave = async () => {
     try {
       setIsSaving(true);
-      
-      const token = ApiService.getAuthToken();
-      if (!token) {
-        toast({
-          title: 'Login Required',
-          description: 'Please login to save scan results',
-          variant: 'destructive',
-        });
-        return;
-      }
 
-      await ApiService.saveScanResult(results.detections, results.imageUrl || '');
+      await ApiService.saveScanResult([selectedDetection], imageUrl || '');
       
       setIsSaved(true);
       toast({
         title: 'Success',
-        description: 'Scan result saved to your history',
+        description: 'Selected plant disease information saved to your history',
       });
     } catch (error) {
+      console.log("error:", error)
       toast({
         title: 'Error',
         description: 'Failed to save scan result',
