@@ -2,7 +2,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { 
   DropdownMenu, 
   DropdownMenuContent, 
@@ -25,7 +25,9 @@ import {
   LogOut, 
   ChevronDown,
   Shield,
-  Mail
+  Mail,
+  LayoutDashboard,
+  Home
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -42,6 +44,8 @@ export default function ProfileDropdown() {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
+  const pathname = usePathname();
+  const isAdminView = pathname.startsWith('/admin');
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -222,6 +226,31 @@ export default function ProfileDropdown() {
               </span>
             </div>
           </div>
+        </div>
+
+        <DropdownMenuSeparator className="my-2" />
+
+        {/* View Switching */}
+        <div className="space-y-1 mb-2">
+          {isAdminView ? (
+            <DropdownMenuItem 
+              onClick={() => router.push('/')}
+              className="cursor-pointer transition-colors duration-150 hover:bg-accent/50 rounded-md"
+            >
+              <Home className="mr-3 h-4 w-4 shrink-0" />
+              <span>Switch to App View</span>
+            </DropdownMenuItem>
+          ) : (
+            user?.role === 'admin' && (
+              <DropdownMenuItem 
+                onClick={() => router.push('/admin')}
+                className="cursor-pointer transition-colors duration-150 hover:bg-accent/50 rounded-md"
+              >
+                <LayoutDashboard className="mr-3 h-4 w-4 shrink-0" />
+                <span>Switch to Admin View</span>
+              </DropdownMenuItem>
+            )
+          )}
         </div>
 
         <DropdownMenuSeparator className="my-2" />
