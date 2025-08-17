@@ -121,6 +121,7 @@ export interface ScanDetectionResult {
   symptoms: MultilingualText[];
   plantType: MultilingualText;
   treatments: DiseaseTreatment[];
+  recommendations?: MultilingualText[];
   detection: DiseaseDetection;
 }
 
@@ -566,16 +567,11 @@ export const ApiService = {
     return localStorage.getItem('authToken') || '';
   },
 
-  /**
-   * Get user's scan history
-   */
   async getScanHistory(page: number = 1, limit: number = 10): Promise<ScanHistoryResponse> {
     try {
-      const token = this.getAuthToken();
       const response = await fetch(`${API_URL}/scan-history?page=${page}&limit=${limit}`, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
+                  credentials: 'include',
+
       });
 
       if (!response.ok) {

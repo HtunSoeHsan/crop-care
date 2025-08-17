@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import ScanHistory from '../models/ScanHistory';
+import Disease from '../models/Disease';
 import fs from 'fs';
 
 export const getScanHistory = async (req: Request, res: Response) => {
@@ -14,12 +15,33 @@ export const getScanHistory = async (req: Request, res: Response) => {
       .skip(skip)
       .limit(limit);
 
+    // Fetch disease information for each scan
+    const enrichedScans = await Promise.all(
+      scanHistory.map(async (scan) => {
+        const diseaseInfo = await Disease.findOne({ classIndex: scan.classIndex });
+        
+        return {
+          _id: scan._id,
+          userId: scan.userId,
+          classIndex: scan.classIndex,
+          confidence: scan.confidence,
+          isHealthy: scan.isHealthy,
+          createdAt: scan.createdAt,
+          updatedAt: scan.updatedAt,
+          diseaseInfo: diseaseInfo || {
+            name: { en: 'Unknown Disease', my: 'Penyakit Tidak Diketahui' },
+            description: { en: 'Disease information not found', my: 'Maklumat penyakit tidak dijumpai' }
+          }
+        };
+      })
+    );
+
     const total = await ScanHistory.countDocuments({ userId });
 
     res.json({
       status: 'success',
       data: {
-        scans: scanHistory,
+        scans: enrichedScans,
         pagination: {
           page,
           limit,
@@ -49,15 +71,6 @@ export const deleteScanHistory = async (req: Request, res: Response) => {
         status: 'error',
         message: 'Scan history not found'
       });
-    }
-
-    // Delete the image file if it exists
-    if (scanHistory.imagePath && fs.existsSync(scanHistory.imagePath)) {
-      try {
-        fs.unlinkSync(scanHistory.imagePath);
-      } catch (fileError) {
-        console.warn('Could not delete image file:', fileError);
-      }
     }
 
     await ScanHistory.findByIdAndDelete(scanId);

@@ -12,7 +12,8 @@
     "train": "ts-node src/scripts/train_model.ts",
     "prepare-dataset": "ts-node src/scripts/prepare_dataset.ts",
     "setup-llm": "chmod +x setup-llm.sh && ./setup-llm.sh",
-    "test-llm": "node test-llm.js"
+    "test-llm": "node test-llm.js",
+    "seed": "ts-node src/seeders/index.ts"
   },
   "keywords": [
     "plant",

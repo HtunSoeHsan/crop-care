@@ -106,28 +106,28 @@ const ScanResults = ({ results, image }: ScanResultsProps) => {
 
       {/* AI Ready Indicator */}
       {!isChatbotReady && results && results.detections.length > 0 && (
-        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-4 text-center">
+        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border border-blue-200 dark:border-blue-700 rounded-xl p-4 text-center">
           <div className="flex items-center justify-center gap-3">
             <div className="w-3 h-3 bg-blue-500 rounded-full animate-bounce"></div>
-            <span className="text-blue-800 font-medium">Preparing AI Specialist...</span>
+            <span className="text-blue-800 dark:text-blue-200 font-medium">Preparing AI Specialist...</span>
           </div>
         </div>
       )}
       
       {isChatbotReady && (
-        <div className="bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-xl p-4 text-center">
+        <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border border-green-200 dark:border-green-700 rounded-xl p-4 text-center">
           <div className="flex items-center justify-center gap-3">
             <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-            <span className="text-green-800 font-medium">AI Specialist Ready - Ask questions about your plant's condition</span>
+            <span className="text-green-800 dark:text-green-200 font-medium">AI Specialist Ready - Ask questions about your plant's condition</span>
           </div>
         </div>
       )}
       
       {results && results.detections.length === 0 && (
-        <div className="bg-gradient-to-r from-yellow-50 to-orange-50 border border-yellow-200 rounded-xl p-4 text-center">
+        <div className="bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 border border-yellow-200 dark:border-yellow-700 rounded-xl p-4 text-center">
           <div className="flex items-center justify-center gap-3">
             <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-            <span className="text-yellow-800 font-medium">No plant conditions detected - AI Specialist not available</span>
+            <span className="text-yellow-800 dark:text-yellow-200 font-medium">No plant conditions detected - AI Specialist not available</span>
           </div>
         </div>
       )}
@@ -138,9 +138,9 @@ const ScanResults = ({ results, image }: ScanResultsProps) => {
         <div className="xl:col-span-3 space-y-4">
           {/* Mobile Collapsible Header */}
           <details className="xl:hidden">
-            <summary className="cursor-pointer bg-white rounded-xl p-4 border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+            <summary className="cursor-pointer bg-white dark:bg-slate-800 rounded-xl p-4 border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition-shadow">
               <div className="flex items-center justify-between">
-                <h3 className="font-semibold text-slate-900">Detection Results</h3>
+                <h3 className="font-semibold text-slate-900 dark:text-white">Detection Results</h3>
                 <Badge variant="outline" className="text-xs">
                   {results.detections.length} found
                 </Badge>
@@ -149,14 +149,14 @@ const ScanResults = ({ results, image }: ScanResultsProps) => {
             <div className="mt-4 space-y-4">
               {/* Mobile Image Section */}
               {image && (
-                <div className="bg-white rounded-xl overflow-hidden border border-slate-200 shadow-sm">
+                <div className="bg-white dark:bg-slate-800 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-sm">
                   <div className="relative aspect-square">
                     <Image src={image} alt="Analyzed plant" fill className="object-cover" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
                   </div>
-                  <div className="p-3 bg-gradient-to-r from-slate-50 to-gray-50">
+                  <div className="p-3 bg-gradient-to-r from-slate-50 to-gray-50 dark:from-slate-700 dark:to-slate-600">
                     <div className="flex items-center justify-between">
-                      <span className="text-sm font-medium text-slate-700">Analyzed Image</span>
+                      <span className="text-sm font-medium text-slate-700 dark:text-slate-200">Analyzed Image</span>
                       <Badge variant="outline" className="text-xs">AI Processed</Badge>
                     </div>
                   </div>
@@ -180,7 +180,7 @@ const ScanResults = ({ results, image }: ScanResultsProps) => {
                     }}
                   >
                     <div className="flex items-center justify-between mb-3">
-                      <span className="text-sm font-medium text-slate-900 line-clamp-2">
+                      <span className="text-sm font-medium text-slate-900 dark:text-white line-clamp-2">
                         {getLocalizedProperty(detection.name, locale)}
                       </span>
                       <Badge variant="outline" className={`text-xs flex-shrink-0 ${getConfidenceColor(parseFloat(detection.detection.confidence))}`}>
@@ -468,86 +468,61 @@ const ScanResults = ({ results, image }: ScanResultsProps) => {
                   
                   <TabsContent value="recommendations" className="mt-0 space-y-6">
                     <div className="space-y-6">
-                      {/* Prevention Tips */}
-                      <Card className="border-slate-200">
-                        <CardHeader>
-                          <CardTitle className="flex items-center gap-3 text-xl">
-                            <div className="p-3 bg-green-100 rounded-full">
-                              <Shield className="h-6 w-6 text-green-600" />
-                            </div>
-                            Prevention & Best Practices
-                          </CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                            <div className="bg-green-50 rounded-lg p-6">
-                              <h4 className="font-semibold mb-4 text-green-900 text-lg">Cultural Practices</h4>
-                              <ul className="text-green-800 space-y-3 text-base">
-                                <li className="flex items-start gap-3">
-                                  <span className="w-3 h-3 bg-green-400 rounded-full mt-2 flex-shrink-0" />
-                                  <span>Maintain proper plant spacing for air circulation</span>
-                                </li>
-                                <li className="flex items-start gap-3">
-                                  <span className="w-3 h-3 bg-green-400 rounded-full mt-2 flex-shrink-0" />
-                                  <span>Control humidity levels</span>
-                                </li>
-                                <li className="flex items-start gap-3">
-                                  <span className="w-3 h-3 bg-green-400 rounded-full mt-2 flex-shrink-0" />
-                                  <span>Use disease-resistant plant varieties</span>
-                                </li>
-                              </ul>
-                            </div>
-                            
+                      {/* Real Recommendations from API */}
+                      {displayDetection.recommendations && displayDetection.recommendations.length > 0 ? (
+                        <Card className="border-slate-200">
+                          <CardHeader>
+                            <CardTitle className="flex items-center gap-3 text-xl">
+                              <div className="p-3 bg-blue-100 rounded-full">
+                                <Shield className="h-6 w-6 text-blue-600" />
+                              </div>
+                              Expert Recommendations
+                            </CardTitle>
+                          </CardHeader>
+                          <CardContent>
                             <div className="bg-blue-50 rounded-lg p-6">
-                              <h4 className="font-semibold mb-4 text-blue-900 text-lg">Monitoring</h4>
-                              <ul className="text-blue-800 space-y-3 text-base">
-                                <li className="flex items-start gap-3">
-                                  <span className="w-3 h-3 bg-blue-400 rounded-full mt-2 flex-shrink-0" />
-                                  <span>Regular inspection of leaves and stems</span>
-                                </li>
-                                <li className="flex items-start gap-3">
-                                  <span className="w-3 h-3 bg-blue-400 rounded-full mt-2 flex-shrink-0" />
-                                  <span>Early detection and treatment</span>
-                                </li>
-                                <li className="flex items-start gap-3">
-                                  <span className="w-3 h-3 bg-blue-400 rounded-full mt-2 flex-shrink-0" />
-                                  <span>Keep records of treatments applied</span>
-                                </li>
+                              <ul className="text-blue-800 space-y-4 text-base">
+                                {displayDetection.recommendations.map((recommendation, index) => (
+                                  <li key={index} className="flex items-start gap-3">
+                                    <span className="w-3 h-3 bg-blue-500 rounded-full mt-2 flex-shrink-0" />
+                                    <span className="text-lg leading-relaxed">{getLocalizedProperty(recommendation, locale)}</span>
+                                  </li>
+                                ))}
                               </ul>
                             </div>
-                          </div>
-                        </CardContent>
-                      </Card>
-                      
-                      {/* Care Recommendations */}
-                      <Card className="border-slate-200">
-                        <CardHeader>
-                          <CardTitle className="flex items-center gap-3 text-xl">
-                            <div className="p-3 bg-purple-100 rounded-full">
-                              <Heart className="h-6 w-6 text-purple-600" />
+                          </CardContent>
+                        </Card>
+                      ) : (
+                        <Card className="border-slate-200">
+                          <CardHeader>
+                            <CardTitle className="flex items-center gap-3 text-xl">
+                              <div className="p-3 bg-gray-100 rounded-full">
+                                <Shield className="h-6 w-6 text-gray-600" />
+                              </div>
+                              General Plant Care
+                            </CardTitle>
+                          </CardHeader>
+                          <CardContent>
+                            <div className="bg-gray-50 rounded-lg p-6">
+                              <p className="text-gray-700 text-lg mb-4">No specific recommendations available for this condition.</p>
+                              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 text-gray-800">
+                                <div className="text-center p-6 bg-white rounded-lg">
+                                  <div className="text-2xl font-bold text-gray-600 mb-3">Watering</div>
+                                  <p className="text-sm text-gray-700">Maintain consistent soil moisture</p>
+                                </div>
+                                <div className="text-center p-6 bg-white rounded-lg">
+                                  <div className="text-2xl font-bold text-gray-600 mb-3">Light</div>
+                                  <p className="text-sm text-gray-700">Ensure adequate sunlight</p>
+                                </div>
+                                <div className="text-center p-6 bg-white rounded-lg">
+                                  <div className="text-2xl font-bold text-gray-600 mb-3">Nutrition</div>
+                                  <p className="text-sm text-gray-700">Use balanced fertilizer</p>
+                                </div>
+                              </div>
                             </div>
-                            Plant Care Recommendations
-                          </CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <div className="bg-purple-50 rounded-lg p-6">
-                            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 text-purple-800">
-                              <div className="text-center p-6 bg-white rounded-lg">
-                                <div className="text-3xl font-bold text-purple-600 mb-3">Watering</div>
-                                <p className="text-sm text-purple-700">Maintain consistent soil moisture, avoid overwatering</p>
-                              </div>
-                              <div className="text-center p-6 bg-white rounded-lg">
-                                <div className="text-3xl font-bold text-purple-600 mb-3">Light</div>
-                                <p className="text-sm text-purple-700">Ensure adequate sunlight based on plant requirements</p>
-                              </div>
-                              <div className="text-center p-6 bg-white rounded-lg">
-                                <div className="text-3xl font-bold text-purple-600 mb-3">Nutrition</div>
-                                <p className="text-sm text-purple-700">Use balanced fertilizer during growing season</p>
-                              </div>
-                            </div>
-                          </div>
-                        </CardContent>
-                      </Card>
+                          </CardContent>
+                        </Card>
+                      )}
                     </div>
                   </TabsContent>
                 </Tabs>

@@ -3,7 +3,7 @@ import * as tf from '@tensorflow/tfjs-node';
 import sharp from 'sharp';
 import path from 'path';
 import fs from 'fs';
-import { getDiseaseByClassIndex } from '../config/disease-mapping';
+import Disease from '../models/Disease';
 import { TreatmentRecommendationService } from '../services/treatment-recommendation.service';
 import { ModelInspector } from '../utils/model-inspector';
 import { get } from 'http';
@@ -223,8 +223,10 @@ const detectedResult = async (tensors: tf.Tensor[]): Promise<PlantDisease[]> => 
 
     const top5 = topPredictions.filter(pred => pred.confidence * 100 > 0.1); // Filter out low confidence predictions
     console.log("top5",top5);
-    const top5Result: PlantDisease[] = top5.map((pred) => {
-      const diseaseInfo = getDiseaseByClassIndex(pred.classIndex) || {
+    const top5Result: PlantDisease[] = [];
+    
+    for (const pred of top5) {
+      const diseaseInfo = await Disease.findOne({ classIndex: pred.classIndex }) || {
         name: { en: 'Unknown Disease', my: 'Penyakit Tidak Diketahui' },
         description: { en: 'Unable to identify this disease', my: 'Tidak dapat mengenal pasti penyakit ini' },
         symptoms: [{ en: 'Unknown symptoms', my: 'Gejala tidak diketahui' }],
@@ -234,19 +236,23 @@ const detectedResult = async (tensors: tf.Tensor[]): Promise<PlantDisease[]> => 
           description: { en: 'Please consult with a plant disease expert', my: 'Sila rujuk pakar penyakit tumbuhan' },
           steps: [{ en: 'Contact local agricultural extension', my: 'Hubungi pejabat pertanian tempatan' }]
         }],
-        detection: { confidence: 0 }
+        recommendations: []
       };
       
-      return {
+      const diseaseData = diseaseInfo && (diseaseInfo as any).toObject 
+        ? (diseaseInfo as any).toObject() 
+        : diseaseInfo;
+      
+      top5Result.push({
         classIndex: pred.classIndex,
-        ...diseaseInfo,
+        ...diseaseData,
         detection: {
-          confidence: `${(pred.confidence * 100).toFixed(2)}`, // Convert to percentage
-          imageUrl: '', // You can add the image URL if needed
+          confidence: `${(pred.confidence * 100).toFixed(2)}`,
+          imageUrl: '',
           detectedAt: new Date()
         }
-      };
-    });
+      });
+    }
     console.log("top5Result",top5Result); 
     return top5Result;
   } catch (error) {
