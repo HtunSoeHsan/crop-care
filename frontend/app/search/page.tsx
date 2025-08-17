@@ -8,10 +8,12 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Search, Filter, Leaf, Apple, Heart, AlertTriangle } from 'lucide-react';
 import { SearchService, SearchFilters, SearchResult } from '@/lib/api-service';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
+import { getLocalizedProperty } from '@/lib/utils';
 
 export default function SearchPage() {
   const t = useTranslations('search');
+  const locale = useLocale();
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState<SearchResult | null>(null);
   const [loading, setLoading] = useState(false);
@@ -195,50 +197,43 @@ export default function SearchPage() {
           <Tabs value={activeTab} onValueChange={setActiveTab}>
             <TabsList className="grid w-full grid-cols-4">
               <TabsTrigger value="all">{t('results.all')} ({searchResults.totalResults})</TabsTrigger>
-              <TabsTrigger value="diseases">{t('results.diseases')} ({searchResults.diseases.length})</TabsTrigger>
-              <TabsTrigger value="plants">{t('results.plants')} ({searchResults.plantGuides.length})</TabsTrigger>
-              <TabsTrigger value="foods">{t('results.foods')} ({searchResults.healthyFoods.length})</TabsTrigger>
+              <TabsTrigger value="diseases">{t('results.diseases')} ({searchResults.diseases?.length || 0})</TabsTrigger>
+              <TabsTrigger value="plants">{t('results.plants')} ({searchResults.plantGuides?.length || 0})</TabsTrigger>
+              <TabsTrigger value="foods">{t('results.foods')} ({searchResults.healthyFoods?.length || 0})</TabsTrigger>
             </TabsList>
             
             <TabsContent value="all" className="pt-6 space-y-6">
               {/* Diseases */}
-              {searchResults.diseases.length > 0 && (
+              {searchResults.diseases?.length > 0 && (
                 <div>
                   <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
                     <AlertTriangle className="h-5 w-5 text-red-500" />
-                    {t('results.diseases')} ({searchResults.diseases.length})
+                    {t('results.diseases')} ({searchResults.diseases?.length || 0})
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {searchResults.diseases.map((disease: any, index: number) => (
+                    {searchResults.diseases?.map((disease: any, index: number) => (
                       <Card key={index} className="hover:shadow-md transition-shadow">
                         <CardHeader>
-                          <CardTitle className="text-lg">{disease.disease}</CardTitle>
-                          <Badge variant={disease.severity === 'high' ? 'destructive' : 'secondary'}>
-                            {disease.severity} severity
-                          </Badge>
+                          <CardTitle className="text-lg">{getLocalizedProperty(disease.name, locale)}</CardTitle>
                         </CardHeader>
                         <CardContent>
-                          <p className="text-sm text-muted-foreground mb-3">{disease.content}</p>
+                          <p className="text-sm text-muted-foreground mb-3">{getLocalizedProperty(disease.description, locale)}</p>
                           <div className="space-y-2">
                             <div>
                               <span className="text-xs font-medium">Symptoms:</span>
                               <div className="flex flex-wrap gap-1 mt-1">
-                                {disease.symptoms.slice(0, 3).map((symptom: string, i: number) => (
+                                {disease.symptoms?.slice(0, 3).map((symptom: any, i: number) => (
                                   <Badge key={i} variant="outline" className="text-xs">
-                                    {symptom}
+                                    {getLocalizedProperty(symptom, locale)}
                                   </Badge>
                                 ))}
                               </div>
                             </div>
                             <div>
-                              <span className="text-xs font-medium">Affects:</span>
-                              <div className="flex flex-wrap gap-1 mt-1">
-                                {disease.plantTypes.slice(0, 3).map((plant: string, i: number) => (
-                                  <Badge key={i} variant="outline" className="text-xs">
-                                    {plant}
-                                  </Badge>
-                                ))}
-                              </div>
+                              <span className="text-xs font-medium">Plant Type:</span>
+                              <Badge variant="outline" className="ml-2 text-xs">
+                                {getLocalizedProperty(disease.plantType, locale)}
+                              </Badge>
                             </div>
                           </div>
                         </CardContent>
@@ -249,27 +244,27 @@ export default function SearchPage() {
               )}
 
               {/* Plant Guides */}
-              {searchResults.plantGuides.length > 0 && (
+              {searchResults.plantGuides?.length > 0 && (
                 <div>
                   <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
                     <Leaf className="h-5 w-5 text-green-500" />
-                    {t('results.plants')} ({searchResults.plantGuides.length})
+                    {t('results.plants')} ({searchResults.plantGuides?.length || 0})
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {searchResults.plantGuides.map((guide: any, index: number) => (
+                    {searchResults.plantGuides?.map((guide: any, index: number) => (
                       <Card key={index} className="hover:shadow-md transition-shadow">
                         <CardHeader>
-                          <CardTitle className="text-lg">{guide.plantName.en}</CardTitle>
+                          <CardTitle className="text-lg">{getLocalizedProperty(guide.plantName, locale)}</CardTitle>
                           <Badge variant="outline">{guide.category}</Badge>
                         </CardHeader>
                         <CardContent>
-                          <p className="text-sm text-muted-foreground mb-3">{guide.description.en}</p>
+                          <p className="text-sm text-muted-foreground mb-3">{getLocalizedProperty(guide.description, locale)}</p>
                           <div className="space-y-2">
                             <div>
                               <span className="text-xs font-medium">Care:</span>
                               <div className="text-xs text-muted-foreground">
-                                <p>Watering: {guide.careInstructions.watering.en}</p>
-                                <p>Sunlight: {guide.careInstructions.sunlight.en}</p>
+                                <p>Watering: {getLocalizedProperty(guide.careInstructions.watering, locale)}</p>
+                                <p>Sunlight: {getLocalizedProperty(guide.careInstructions.sunlight, locale)}</p>
                               </div>
                             </div>
                             <div className="flex flex-wrap gap-1">
@@ -288,28 +283,28 @@ export default function SearchPage() {
               )}
 
               {/* Healthy Foods */}
-              {searchResults.healthyFoods.length > 0 && (
+              {searchResults.healthyFoods?.length > 0 && (
                 <div>
                   <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
                     <Apple className="h-5 w-5 text-orange-500" />
-                    {t('results.foods')} ({searchResults.healthyFoods.length})
+                    {t('results.foods')} ({searchResults.healthyFoods?.length || 0})
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {searchResults.healthyFoods.map((food: any, index: number) => (
+                    {searchResults.healthyFoods?.map((food: any, index: number) => (
                       <Card key={index} className="hover:shadow-md transition-shadow">
                         <CardHeader>
-                          <CardTitle className="text-lg">{food.name.en}</CardTitle>
+                          <CardTitle className="text-lg">{getLocalizedProperty(food.name, locale)}</CardTitle>
                           <Badge variant="outline">{food.category}</Badge>
                         </CardHeader>
                         <CardContent>
-                          <p className="text-sm text-muted-foreground mb-3">{food.benefits.en}</p>
+                          <p className="text-sm text-muted-foreground mb-3">{getLocalizedProperty(food.benefits, locale)}</p>
                           <div className="space-y-2">
                             <div>
                               <span className="text-xs font-medium">Nutrients:</span>
                               <div className="flex flex-wrap gap-1 mt-1">
                                 {food.nutrients.slice(0, 4).map((nutrient: string, i: number) => (
                                   <Badge key={i} variant="outline" className="text-xs">
-                                    {nutrient}
+                                    {getLocalizedProperty(nutrient, locale)}
                                   </Badge>
                                 ))}
                               </div>
@@ -339,23 +334,20 @@ export default function SearchPage() {
             
             <TabsContent value="diseases" className="pt-6">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {searchResults.diseases.map((disease: any, index: number) => (
+                {searchResults?.diseases?.map((disease: any, index: number) => (
                   <Card key={index} className="hover:shadow-md transition-shadow">
                     <CardHeader>
-                      <CardTitle className="text-lg">{disease.disease}</CardTitle>
-                      <Badge variant={disease.severity === 'high' ? 'destructive' : 'secondary'}>
-                        {disease.severity} severity
-                      </Badge>
+                      <CardTitle className="text-lg">{getLocalizedProperty(disease.name, locale)}</CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-sm text-muted-foreground mb-3">{disease.content}</p>
+                      <p className="text-sm text-muted-foreground mb-3">{getLocalizedProperty(disease.description, locale)}</p>
                       <div className="space-y-2">
                         <div>
                           <span className="text-xs font-medium">Symptoms:</span>
                           <div className="flex flex-wrap gap-1 mt-1">
-                            {disease.symptoms.slice(0, 3).map((symptom: string, i: number) => (
+                            {disease.symptoms?.slice(0, 3).map((symptom: any, i: number) => (
                               <Badge key={i} variant="outline" className="text-xs">
-                                {symptom}
+                                {typeof symptom === 'string' ? symptom : getLocalizedProperty(symptom, locale) || 'N/A'}
                               </Badge>
                             ))}
                           </div>
@@ -363,7 +355,7 @@ export default function SearchPage() {
                         <div>
                           <span className="text-xs font-medium">Affects:</span>
                           <div className="flex flex-wrap gap-1 mt-1">
-                            {disease.plantTypes.slice(0, 3).map((plant: string, i: number) => (
+                            {disease.plantTypes?.slice(0, 3).map((plant: string, i: number) => (
                               <Badge key={i} variant="outline" className="text-xs">
                                 {plant}
                               </Badge>
@@ -379,20 +371,20 @@ export default function SearchPage() {
             
             <TabsContent value="plants" className="pt-6">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {searchResults.plantGuides.map((guide: any, index: number) => (
+                {searchResults?.plantGuides?.map((guide: any, index: number) => (
                   <Card key={index} className="hover:shadow-md transition-shadow">
                     <CardHeader>
-                      <CardTitle className="text-lg">{guide.plantName.en}</CardTitle>
+                      <CardTitle className="text-lg">{getLocalizedProperty(guide.plantName, locale)}</CardTitle>
                       <Badge variant="outline">{guide.category}</Badge>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-sm text-muted-foreground mb-3">{guide.description.en}</p>
+                      <p className="text-sm text-muted-foreground mb-3">{getLocalizedProperty(guide.description, locale)}</p>
                       <div className="space-y-2">
                         <div>
                           <span className="text-xs font-medium">Care:</span>
                           <div className="text-xs text-muted-foreground">
-                            <p>Watering: {guide.careInstructions.watering.en}</p>
-                            <p>Sunlight: {guide.careInstructions.sunlight.en}</p>
+                            <p>Watering: {getLocalizedProperty(guide.careInstructions.watering, locale)}</p>
+                            <p>Sunlight: {getLocalizedProperty(guide.careInstructions.sunlight, locale)}</p>
                           </div>
                         </div>
                         <div className="flex flex-wrap gap-1">
@@ -411,21 +403,21 @@ export default function SearchPage() {
             
             <TabsContent value="foods" className="pt-6">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {searchResults.healthyFoods.map((food: any, index: number) => (
+                {searchResults?.healthyFoods?.map((food: any, index: number) => (
                   <Card key={index} className="hover:shadow-md transition-shadow">
                     <CardHeader>
-                      <CardTitle className="text-lg">{food.name.en}</CardTitle>
+                      <CardTitle className="text-lg">{getLocalizedProperty(food.name, locale)}</CardTitle>
                       <Badge variant="outline">{food.category}</Badge>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-sm text-muted-foreground mb-3">{food.benefits.en}</p>
+                      <p className="text-sm text-muted-foreground mb-3">{getLocalizedProperty(food.benefits, locale)}</p>
                       <div className="space-y-2">
                         <div>
                           <span className="text-xs font-medium">Nutrients:</span>
                           <div className="flex flex-wrap gap-1 mt-1">
                             {food.nutrients.slice(0, 4).map((nutrient: string, i: number) => (
                               <Badge key={i} variant="outline" className="text-xs">
-                                {nutrient}
+                                {getLocalizedProperty(nutrient, locale)}
                               </Badge>
                             ))}
                           </div>

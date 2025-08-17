@@ -12,27 +12,10 @@ export function cn(...inputs: ClassValue[]) {
  * @param locale - The current locale (e.g., 'en' or 'my')
  * @returns The value in the appropriate language or a fallback
  */
-export function getLocalizedProperty(obj: any, locale: string, fallbackLocale: string = 'en'): string {
+export function getLocalizedProperty(obj: any, locale: string = 'en'): string {
   if (!obj) return '';
-  
-  // If the object has a property matching the current locale, return it
-  if (obj[locale]) {
-    return obj[locale];
-  }
-  
-  // If the object has a property matching the fallback locale, return it
-  if (obj[fallbackLocale]) {
-    return obj[fallbackLocale];
-  }
-  
-  // If the object itself is a string, return it
-  if (typeof obj === 'string') {
-    return obj;
-  }
-  
-  // Return the first available property or empty string
-  const firstKey = Object.keys(obj)[0];
-  return firstKey ? obj[firstKey] : '';
+  if (typeof obj === 'string') return obj;
+  return obj[locale] || obj.en || obj.my || '';
 }
 
 /**
