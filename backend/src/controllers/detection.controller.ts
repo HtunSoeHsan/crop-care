@@ -8,6 +8,7 @@ import { TreatmentRecommendationService } from '../services/treatment-recommenda
 import { ModelInspector } from '../utils/model-inspector';
 import { get } from 'http';
 import { PlantDisease } from '../types';
+import ScanHistory from '../models/ScanHistory';
 
 interface DetectionResult {
   classIndex: number;
@@ -285,7 +286,8 @@ export const enhancedDetectDisease = async (req: Request, res: Response) => {
     
     res.json({
       status: 'success',
-      data: results
+      data: results,
+      imageUrl: `/uploads/${path.basename(imagePath)}`
     });
 
   } catch (error) {

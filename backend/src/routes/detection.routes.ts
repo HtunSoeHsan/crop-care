@@ -3,7 +3,7 @@ import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
 import { enhancedDetectDisease } from '../controllers/detection.controller';
-import { authenticateToken } from '../middlewares/auth.middleware';
+import { optionalAuth } from '../middlewares/auth.middleware';
 
 const router = express.Router();
 
@@ -44,7 +44,7 @@ const upload = multer({
   }
 });
 
-// Enhanced single image detection endpoint
-router.post('/detect', upload.single('image') as any, enhancedDetectDisease);
+// Enhanced single image detection endpoint with optional auth
+router.post('/detect', upload.single('image') as any, optionalAuth, enhancedDetectDisease);
 
 export default router;

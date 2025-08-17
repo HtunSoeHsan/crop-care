@@ -10,6 +10,7 @@ import ScanResults from '@/components/scan/scan-results-clean';
 import { useTranslations } from 'next-intl';
 import { ApiService, ScanResult } from '@/lib/api-service';
 import { useChatbot } from '@/components/chat/chatbot-provider';
+import SaveScanButton from './save-scan-button';
 
 const ScanForm = () => {
   const t = useTranslations('scanForm');
@@ -314,7 +315,7 @@ const ScanForm = () => {
         <div className="space-y-6">
           <ScanResults results={results} image={selectedImage} />
           
-          {/* AI Chat Integration */}
+          {/* Save and AI Chat Integration */}
           {results.primaryDetection && (
             <div className="bg-gradient-to-r from-green-50 to-blue-50 border border-green-200 rounded-2xl p-6">
               <div className="flex items-center justify-between">
@@ -326,13 +327,16 @@ const ScanForm = () => {
                     Get personalized advice about {results.primaryDetection.name.en} from our AI specialist
                   </p>
                 </div>
-                <Button
-                  onClick={handleAskAI}
-                  className="bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white px-6 py-3 gap-2"
-                >
-                  <MessageCircle className="h-5 w-5" />
-                  Ask AI
-                </Button>
+                <div className="flex gap-3">
+                  <SaveScanButton results={{...results, imageUrl: (results as any).imageUrl}} />
+                  <Button
+                    onClick={handleAskAI}
+                    className="bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white px-6 py-3 gap-2"
+                  >
+                    <MessageCircle className="h-5 w-5" />
+                    Ask AI
+                  </Button>
+                </div>
               </div>
             </div>
           )}

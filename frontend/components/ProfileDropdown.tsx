@@ -80,9 +80,12 @@ export default function ProfileDropdown() {
         method: 'POST',
         credentials: 'include',
       });
-      router.push('/login');
+      localStorage.removeItem('token');
+      window.location.href = '/login';
     } catch (error) {
       console.error('Logout failed', error);
+      localStorage.removeItem('token');
+      window.location.href = '/login';
     }
   };
 

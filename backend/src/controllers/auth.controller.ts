@@ -55,17 +55,17 @@ export const register = async (req: Request, res: Response) => {
       { expiresIn: '24h' }
     );
 
-    res.status(201).json({
-      status: 'success',
-      data: {
-        user: {
-          id: user._id,
-          email: user.email,
-          name: user.name
-        },
-        token
-      }
+    // Set HTTP-only cookie
+    const cookie = serialize('token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production', // HTTPS in production
+      sameSite: 'strict',
+      maxAge: 24 * 60 * 60, // 24 hours
+      path: '/',
     });
+
+    res.setHeader('Set-Cookie', cookie);
+    res.json({message: "success"})
   } catch (error) {
     res.status(500).json({
       status: 'error',
@@ -105,17 +105,17 @@ export const login = async (req: Request, res: Response) => {
       { expiresIn: '24h' }
     );
 
-    res.json({
-      status: 'success',
-      data: {
-        user: {
-          id: user._id,
-          email: user.email,
-          name: user.name
-        },
-        token
-      }
+    // Set HTTP-only cookie
+    const cookie = serialize('token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production', // HTTPS in production
+      sameSite: 'strict',
+      maxAge: 24 * 60 * 60, // 24 hours
+      path: '/',
     });
+
+    res.setHeader('Set-Cookie', cookie);
+    res.json({message: "success"})
   } catch (error) {
     res.status(500).json({
       status: 'error',
@@ -161,25 +161,6 @@ export const googleAuth = async (req: Request, res: Response) => {
 
     res.setHeader('Set-Cookie', cookie);
     
-    // Return user data along with redirect
-    // res.json({
-    //   status: 'success',
-    //   data: {
-    //     user: {
-    //       id: user._id,
-    //       email: user.email,
-    //       name: user.name,
-    //       firstName: user.firstName,
-    //       lastName: user.lastName,
-    //       profileImage: user.profileImage,
-    //       role: user.role,
-    //       isGoogleUser: user.isGoogleUser,
-    //       locale: user.locale
-    //     },
-    //     token,
-    //     redirectUrl: process.env.FRONTEND_URL
-    //   }
-    // });
     res.redirect(`${process.env.FRONTEND_URL}`)
   } catch (error) {
     console.error('Google auth error:', error);
@@ -212,6 +193,27 @@ export const getProfile = async (req: Request, res: Response) => {
     res.status(500).json({
       status: 'error',
       message: 'Error fetching profile'
+    });
+  }
+};
+
+export const logout = async (req: Request, res: Response) => {
+  try {
+    res.clearCookie('token', {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      path: '/'
+    });
+    
+    res.json({
+      status: 'success',
+      message: 'Logged out successfully'
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: 'error',
+      message: 'Error logging out'
     });
   }
 };

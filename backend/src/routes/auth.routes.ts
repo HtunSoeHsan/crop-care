@@ -1,5 +1,5 @@
 import express from 'express';
-import { register, login, getProfile, updateProfile, googleAuth } from '../controllers/auth.controller';
+import { register, login, logout, getProfile, updateProfile, googleAuth } from '../controllers/auth.controller';
 import { authenticateToken } from '../middlewares/auth.middleware';
 import passport from 'passport';
 import '../config/passport'; 
@@ -19,5 +19,6 @@ router.get('/google/callback', passport.authenticate('google', { failureRedirect
 // Protected routes
 router.get('/profile', authenticateToken, getProfile);
 router.put('/profile', authenticateToken, updateProfile);
+router.post('/logout', logout);
 
 export default router; 

@@ -130,6 +130,7 @@ export interface ScanResult {
   primaryDetection?: ScanDetectionResult;
   isHealthy: boolean;
   confidence: number;
+  imageUrl?: string;
 }
 
 // Chatbot interfaces
@@ -243,6 +244,36 @@ export interface SuggestionsResponse {
   status: string;
   data: {
     suggestions: string[];
+  };
+}
+
+// Scan history interfaces
+export interface ScanHistoryItem {
+  _id: string;
+  userId: string;
+  imageUrl: string;
+  results: ScanDetectionResult[];
+  primaryResult: {
+    classIndex: number;
+    name: MultilingualText;
+    confidence: string;
+  };
+  isHealthy: boolean;
+  confidence: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ScanHistoryResponse {
+  status: string;
+  data: {
+    scans: ScanHistoryItem[];
+    pagination: {
+      page: number;
+      limit: number;
+      total: number;
+      pages: number;
+    };
   };
 }
 
@@ -533,6 +564,79 @@ export const ApiService = {
 
     // Fallback to localStorage
     return localStorage.getItem('authToken') || '';
+  },
+
+  /**
+   * Get user's scan history
+   */
+  async getScanHistory(page: number = 1, limit: number = 10): Promise<ScanHistoryResponse> {
+    try {
+      const token = this.getAuthToken();
+      const response = await fetch(`${API_URL}/scan-history?page=${page}&limit=${limit}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch scan history');
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error('Error fetching scan history:', error);
+      throw error;
+    }
+  },
+
+  /**
+   * Save scan result to history
+   */
+  async saveScanResult(results: any[], imageUrl: string): Promise<{ success: boolean; message: string; scanId: string }> {
+    try {
+      const token = this.getAuthToken();
+      const response = await fetch(`${API_URL}/scan-history/save`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({ results, imageUrl }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to save scan result');
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error('Error saving scan result:', error);
+      throw error;
+    }
+  },
+
+  /**
+   * Delete a scan from history
+   */
+  async deleteScanHistory(scanId: string): Promise<{ success: boolean; message: string }> {
+    try {
+      const token = this.getAuthToken();
+      const response = await fetch(`${API_URL}/scan-history/${scanId}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete scan history');
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error('Error deleting scan history:', error);
+      throw error;
+    }
   }
 };
 

@@ -16,6 +16,7 @@ import plantCollectionRoutes from './routes/plant-collection.routes';
 import chatbotRoutes from './routes/chatbot.routes';
 import searchRoutes from './routes/search.routes';
 import adminRoutes from './routes/admin'; // Import admin routes
+import scanHistoryRoutes from './routes/scan-history.routes';
 import cookieParser from 'cookie-parser'
 // Import passport (you must have this file)
 import passport from 'passport';
@@ -32,8 +33,10 @@ connectDatabase();
 
 // Middleware
 app.use(cors({
-  origin: process.env.FRONTEND_URL,
+  origin: ['http://localhost:4000'],
   credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 app.use(cookieParser());
 // Body parsing
@@ -68,6 +71,7 @@ app.use('/api/plant-collection', plantCollectionRoutes);
 app.use('/api/chatbot', chatbotRoutes);
 app.use('/api/search', searchRoutes);
 app.use('/api/admin', adminRoutes); // Register admin routes
+app.use('/api/scan-history', scanHistoryRoutes);
 // Error handling middleware
 app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
   console.error('Unhandled error:', err.stack);
