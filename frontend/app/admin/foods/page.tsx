@@ -281,14 +281,14 @@ export default function AdminFoodsPage() {
                   </td>
                   <td className="px-6 py-4">
                     <div className="flex flex-wrap gap-1 max-w-xs">
-                      {(Array.isArray(food.keyBenefits) ? food.keyBenefits : (food.keyBenefits || '').split(', ')).slice(0, 2).map((benefit, idx) => (
+                      {(Array.isArray(food.keyBenefits) ? food.keyBenefits : (food.keyBenefits as string || '').split(', ')).slice(0, 2).map((benefit, idx) => (
                         <span key={idx} className="px-2 py-1 text-xs bg-blue-100 text-blue-700 rounded">{benefit}</span>
                       ))}
                     </div>
                   </td>
                   <td className="px-6 py-4">
                     <div className="flex flex-wrap gap-1 max-w-xs">
-                      {(Array.isArray(food.keyNutrients) ? food.keyNutrients : (food.keyNutrients || '').split(', ')).slice(0, 2).map((nutrient, idx) => (
+                      {(Array.isArray(food.keyNutrients) ? food.keyNutrients : (food.keyNutrients as string || '').split(', ')).slice(0, 2).map((nutrient, idx) => (
                         <span key={idx} className="px-2 py-1 text-xs bg-orange-100 text-orange-700 rounded">{nutrient}</span>
                       ))}
                     </div>

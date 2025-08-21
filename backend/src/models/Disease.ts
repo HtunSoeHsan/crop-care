@@ -1,7 +1,7 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import mongoose, { Document, Schema } from 'mongoose';
 
 export interface IDisease extends Document {
-  classIndex: number;
+  classIndex?: number;
   name: {
     en: string;
     my: string;
@@ -10,79 +10,82 @@ export interface IDisease extends Document {
     en: string;
     my: string;
   };
-  symptoms: Array<{
-    en: string;
-    my: string;
-  }>;
-  plantType: {
+  symptoms: {
     en: string;
     my: string;
   };
-  treatments: Array<{
-    name: {
-      en: string;
-      my: string;
-    };
-    description: {
-      en: string;
-      my: string;
-    };
-    steps: Array<{
-      en: string;
-      my: string;
-    }>;
-  }>;
-  recommendations: Array<{
+  causes: {
     en: string;
     my: string;
-  }>;
+  };
+  treatment: {
+    en: string;
+    my: string;
+  };
+  prevention: {
+    en: string;
+    my: string;
+  };
+  severity: 'Low' | 'Medium' | 'High' | 'Critical';
+  affectedCrops: {
+    en: string;
+    my: string;
+  };
+  imageUrl?: string;
+  isActive: boolean;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
-const DiseaseSchema = new Schema<IDisease>({
+const DiseaseSchema: Schema = new Schema({
   classIndex: {
     type: Number,
-    required: true,
-    unique: true
+    unique: true,
+    sparse: true
   },
   name: {
-    en: { type: String, required: true },
-    my: { type: String, required: true }
+    en: { type: String, required: true, trim: true },
+    my: { type: String, required: true, trim: true }
   },
   description: {
-    en: { type: String, required: true },
-    my: { type: String, required: true }
+    en: { type: String, required: true, trim: true },
+    my: { type: String, required: true, trim: true }
   },
-  symptoms: [{
-    en: { type: String, required: true },
-    my: { type: String, required: true }
-  }],
-  plantType: {
-    en: { type: String, required: true },
-    my: { type: String, required: true }
+  symptoms: {
+    en: { type: String, required: true, trim: true },
+    my: { type: String, required: true, trim: true }
   },
-  treatments: [{
-    name: {
-      en: { type: String, required: true },
-      my: { type: String, required: true }
-    },
-    description: {
-      en: { type: String, required: true },
-      my: { type: String, required: true }
-    },
-    steps: [{
-      en: { type: String, required: true },
-      my: { type: String, required: true }
-    }]
-  }],
-  recommendations: [{
-    en: { type: String, required: true },
-    my: { type: String, required: true }
-  }]
+  causes: {
+    en: { type: String, required: true, trim: true },
+    my: { type: String, required: true, trim: true }
+  },
+  treatment: {
+    en: { type: String, required: true, trim: true },
+    my: { type: String, required: true, trim: true }
+  },
+  prevention: {
+    en: { type: String, required: true, trim: true },
+    my: { type: String, required: true, trim: true }
+  },
+  severity: {
+    type: String,
+    enum: ['Low', 'Medium', 'High', 'Critical'],
+    required: true
+  },
+  affectedCrops: {
+    en: { type: String, required: true, trim: true },
+    my: { type: String, required: true, trim: true }
+  },
+  imageUrl: {
+    type: String,
+    trim: true
+  },
+  isActive: {
+    type: Boolean,
+    default: true
+  }
 }, {
   timestamps: true
 });
 
-DiseaseSchema.index({ classIndex: 1 });
-
-const Disease = mongoose.model<IDisease>('Disease', DiseaseSchema);
-export default Disease;
+export default mongoose.model<IDisease>('Disease', DiseaseSchema);

@@ -18,6 +18,8 @@ import searchRoutes from './routes/search.routes';
 import adminRoutes from './routes/admin'; // Import admin routes
 import scanHistoryRoutes from './routes/scan-history.routes';
 import analyticsRoutes from './routes/analytics.routes';
+import resourceRoutes from './routes/resource.routes';
+import uploadRoutes from './routes/upload.routes';
 import cookieParser from 'cookie-parser'
 // Import passport (you must have this file)
 import passport from 'passport';
@@ -46,6 +48,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Static files
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+app.use('/images/pdfs', express.static(path.join(__dirname, '../uploads/pdfs')));
 
 // Session middleware (required for Passport OAuth flow)
 app.use(session({
@@ -74,6 +77,8 @@ app.use('/api/search', searchRoutes);
 app.use('/api/admin', adminRoutes); // Register admin routes
 app.use('/api/scan-history', scanHistoryRoutes);
 app.use('/api/analytics', analyticsRoutes);
+app.use('/api/resources', resourceRoutes);
+app.use('/api/upload', uploadRoutes);
 // Error handling middleware
 app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
   console.error('Unhandled error:', err.stack);

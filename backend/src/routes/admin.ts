@@ -3,6 +3,7 @@ import { authenticateToken, requireAdmin } from '../middlewares/auth.middleware'
 import { createResource, deleteResource, getResources, updateResource } from '../controllers/resourceController';
 import { createHealthyFood, deleteHealthyFood, getHealthyFoods, updateHealthyFood } from '../controllers/healthyFoodController';
 import { deleteUser, getUsers, updateUser } from '../controllers/userController';
+import { createDisease, deleteDisease, getDiseases, updateDisease } from '../controllers/diseaseController';
 
 const router = Router();
 
@@ -22,5 +23,11 @@ router.delete('/healthy-foods/:id', authenticateToken, requireAdmin, deleteHealt
 router.get('/users', authenticateToken, requireAdmin, getUsers);
 router.put('/users/:id', authenticateToken, requireAdmin, updateUser);
 router.delete('/users/:id', authenticateToken, requireAdmin, deleteUser);
+
+// Diseases
+router.get('/diseases', authenticateToken, requireAdmin, getDiseases);
+router.post('/diseases', authenticateToken, requireAdmin, createDisease);
+router.put('/diseases/:id', authenticateToken, requireAdmin, updateDisease);
+router.delete('/diseases/:id', authenticateToken, requireAdmin, deleteDisease);
 
 export default router;
