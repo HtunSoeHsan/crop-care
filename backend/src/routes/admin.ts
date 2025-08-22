@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { authenticateToken, requireAdmin } from '../middlewares/auth.middleware';
 import { createResource, deleteResource, getResources, updateResource } from '../controllers/resourceController';
 import { createHealthyFood, deleteHealthyFood, getHealthyFoods, updateHealthyFood } from '../controllers/healthyFoodController';
-import { deleteUser, getUsers, updateUser } from '../controllers/userController';
+import { deleteUser, getUsers, toggleUserStatus, updateUser, updateUserRole } from '../controllers/userController';
 import { createDisease, deleteDisease, getDiseases, updateDisease } from '../controllers/diseaseController';
 
 const router = Router();
@@ -22,6 +22,8 @@ router.delete('/healthy-foods/:id', authenticateToken, requireAdmin, deleteHealt
 // Users
 router.get('/users', authenticateToken, requireAdmin, getUsers);
 router.put('/users/:id', authenticateToken, requireAdmin, updateUser);
+router.patch('/users/:id/toggle-status', authenticateToken, requireAdmin, toggleUserStatus);
+router.patch('/users/:id/role', authenticateToken, requireAdmin, updateUserRole);
 router.delete('/users/:id', authenticateToken, requireAdmin, deleteUser);
 
 // Diseases

@@ -9,12 +9,12 @@
     "language": "Language",
     "english": "English",
     "burmese": "Burmese",
-    "description": "AyarCare is an AI-powered plant disease detection app that helps keep your plants healthy and makes gardening easier.",
+    "description": "CropCare is an AI-powered plant disease detection app that helps keep your plants healthy and makes gardening easier.",
     "weather": "Weather"
   },
   "popularDiseases": "Popular Plant Diseases",
   "home": {
-    "title": "AyarCare - Plant Disease Detection",
+    "title": "CropCare - Plant Disease Detection",
     "description": "Identify plant diseases and get treatment recommendations",
     "getStarted": "Get Started",
     "weatherAlerts": "Weather Alerts",
@@ -35,7 +35,7 @@
       "educationalResources": "Educational Resources",
       "educationalResourcesDesc": "Browse our library of articles and guides about plant health, diseases, and organic gardening.",
       "keyFeatures": "Key Features",
-      "comprehensiveTools": "AyarCare offers comprehensive tools to identify plant diseases and promote plant health through advanced technology and expert recommendations."
+      "comprehensiveTools": "CropCare offers comprehensive tools to identify plant diseases and promote plant health through advanced technology and expert recommendations."
     },
     "popularDiseases": "Popular Plant Diseases",
     "learnAboutDiseases": "Learn about common plant diseases, their symptoms, and treatments.",
@@ -80,33 +80,33 @@
     },
     "testimonials": {
       "title": "What Our Users Say",
-      "description": "Discover how AyarCare has helped gardeners, farmers, and plant enthusiasts keep their plants healthy.",
+      "description": "Discover how CropCare has helped gardeners, farmers, and plant enthusiasts keep their plants healthy.",
       "sarahJohnson": {
         "name": "Sarah Johnson",
         "role": "Home Gardener",
-        "testimonial": "AyarCare saved my tomato plants! I was about to give up when I discovered this app. It identified the early blight disease and gave me specific treatment recommendations that worked perfectly."
+        "testimonial": "CropCare saved my tomato plants! I was about to give up when I discovered this app. It identified the early blight disease and gave me specific treatment recommendations that worked perfectly."
       },
       "michaelChen": {
         "name": "Michael Chen",
         "role": "Urban Farmer",
-        "testimonial": "As an urban farmer, plant diseases can be devastating to my small operation. AyarCare has become an essential tool in my daily routine. The accuracy and speed of disease detection is impressive."
+        "testimonial": "As an urban farmer, plant diseases can be devastating to my small operation. CropCare has become an essential tool in my daily routine. The accuracy and speed of disease detection is impressive."
       },
       "emilyRodriguez": {
         "name": "Emily Rodriguez",
         "role": "Botanist",
-        "testimonial": "I recommend AyarCare to all my students. It's not only practical for identifying plant diseases but also educational, providing detailed information about causes and prevention methods."
+        "testimonial": "I recommend CropCare to all my students. It's not only practical for identifying plant diseases but also educational, providing detailed information about causes and prevention methods."
       }
     },
     "faq": {
       "title": "Frequently Asked Questions",
-      "description": "Find answers to common questions about AyarCare's plant disease detection and treatment recommendations.",
+      "description": "Find answers to common questions about CropCare's plant disease detection and treatment recommendations.",
       "accuracy": {
-        "question": "How accurate is AyarCare's disease detection?",
+        "question": "How accurate is CropCare's disease detection?",
         "answer": "Our AI system has been trained on thousands of plant disease images and can identify over 50 common plant diseases with 95% accuracy. However, for critical decisions, we always recommend consulting with local agricultural experts."
       },
       "plantTypes": {
-        "question": "What types of plants can AyarCare identify diseases for?",
-        "answer": "Currently, AyarCare can identify diseases in common garden plants, vegetables, fruits, and ornamental plants. We're continuously expanding our database to include more plant varieties."
+        "question": "What types of plants can CropCare identify diseases for?",
+        "answer": "Currently, CropCare can identify diseases in common garden plants, vegetables, fruits, and ornamental plants. We're continuously expanding our database to include more plant varieties."
       },
       "photoTips": {
         "question": "What are the best practices for taking photos for disease detection?",
@@ -117,11 +117,11 @@
         "answer": "We provide both organic and conventional treatment options. Our organic recommendations focus on natural solutions like neem oil, beneficial insects, and cultural practices, while conventional options include approved chemical treatments."
       },
       "dataSecurity": {
-        "question": "Is my data secure when using AyarCare?",
+        "question": "Is my data secure when using CropCare?",
         "answer": "Yes, we take data privacy seriously. All images and information you upload are processed securely and are not shared with third parties. We comply with all relevant data protection regulations."
       },
       "offline": {
-        "question": "Can I use AyarCare offline?",
+        "question": "Can I use CropCare offline?",
         "answer": "While our AI analysis requires an internet connection, you can browse educational resources and view previously saved information offline. We're working on expanding offline capabilities in future updates."
       }
     }
@@ -146,7 +146,7 @@
     "privacyPolicy": "Privacy Policy",
     "termsOfService": "Terms of Service",
     "contactUs": "Contact Us",
-    "description": "AyarCare combines AI-powered plant disease detection with expert recommendations to keep your plants healthy and make gardening easier."
+    "description": "CropCare combines AI-powered plant disease detection with expert recommendations to keep your plants healthy and make gardening easier."
   },
   "scan": {
     "title": "Scan Your Plant",

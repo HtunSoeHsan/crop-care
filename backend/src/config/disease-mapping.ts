@@ -950,6 +950,300 @@ export const diseaseMapping: PlantDisease[] = [
         ]
       }
     ]
+  },
+  {
+    classIndex: 14,
+    name: {
+      en: 'Rice Bacterial Leaf Blight',
+      my: 'ဆန် ဘက်တီးရီးယား အရွက်ညိုရောဂါ'
+    },
+    description: {
+      en: 'A bacterial disease affecting rice leaves causing blight.',
+      my: 'ဆန်အရွက်များကို ထိခိုက်စေသော ဘက်တီးရီးယား ညိုရောဂါဖြစ်သည်။'
+    },
+    symptoms: [{
+      en: 'Leaf blight and yellowing',
+      my: 'အရွက်ညိုခြင်းနှင့် ဝါခြင်း'
+    }],
+    plantType: {
+      en: 'Rice',
+      my: 'ဆန်'
+    },
+    treatments: [],
+    recommendations: []
+  },
+  {
+    classIndex: 15,
+    name: {
+      en: 'Rice Bacterial Leaf Streak',
+      my: 'ဆန် ဘက်တီးရီးယား အရွက်မျဉ်းရောဂါ'
+    },
+    description: {
+      en: 'A bacterial disease causing streaks on rice leaves.',
+      my: 'ဆန်အရွက်များတွင် မျဉ်းများ ဖြစ်စေသော ဘက်တီးရီးယားရောဂါဖြစ်သည်။'
+    },
+    symptoms: [{
+      en: 'Streaks on leaves',
+      my: 'အရွက်များတွင် မျဉ်းများ'
+    }],
+    plantType: {
+      en: 'Rice',
+      my: 'ဆန်'
+    },
+    treatments: [],
+    recommendations: []
+  },
+  {
+    classIndex: 16,
+    name: {
+      en: 'Rice Bakanae',
+      my: 'ဆန် ဘကာနေး ရောဂါ'
+    },
+    description: {
+      en: 'A fungal disease causing abnormal elongation of rice plants.',
+      my: 'ဆန်ပင်များ ပုံမှန်မဟုတ်ဘဲ ရှည်လျားစေသော မှိုရောဂါဖြစ်သည်။'
+    },
+    symptoms: [{
+      en: 'Abnormal plant elongation',
+      my: 'အပင် ပုံမှန်မဟုတ်ဘဲ ရှည်လျားခြင်း'
+    }],
+    plantType: {
+      en: 'Rice',
+      my: 'ဆန်'
+    },
+    treatments: [],
+    recommendations: []
+  },
+  {
+    classIndex: 17,
+    name: {
+      en: 'Rice Blast',
+      my: 'ဆန် ဘလပ်စ် ရောဂါ'
+    },
+    description: {
+      en: 'A fungal disease causing blast lesions on rice plants.',
+      my: 'ဆန်ပင်များတွင် ဘလပ်စ် အနာများ ဖြစ်စေသော မှိုရောဂါဖြစ်သည်။'
+    },
+    symptoms: [{
+      en: 'Blast lesions on leaves and stems',
+      my: 'အရွက်နှင့် ပင်စည်များတွင် ဘလပ်စ် အနာများ'
+    }],
+    plantType: {
+      en: 'Rice',
+      my: 'ဆန်'
+    },
+    treatments: [],
+    recommendations: []
+  },
+  {
+    classIndex: 18,
+    name: {
+      en: 'Rice Brown Spot',
+      my: 'ဆန် အညိုစက် ရောဂါ'
+    },
+    description: {
+      en: 'A fungal disease causing brown spots on rice leaves.',
+      my: 'ဆန်အရွက်များတွင် အညိုစက်များ ဖြစ်စေသော မှိုရောဂါဖြစ်သည်။'
+    },
+    symptoms: [{
+      en: 'Brown spots on leaves',
+      my: 'အရွက်များတွင် အညိုစက်များ'
+    }],
+    plantType: {
+      en: 'Rice',
+      my: 'ဆန်'
+    },
+    treatments: [],
+    recommendations: []
+  },
+  {
+    classIndex: 19,
+    name: {
+      en: 'Rice False Smut',
+      my: 'ဆန် အတုမှိုစွဲ ရောဂါ'
+    },
+    description: {
+      en: 'A fungal disease affecting rice grains with false smut.',
+      my: 'ဆန်စေ့များကို အတုမှိုစွဲဖြင့် ထိခိုက်စေသော မှိုရောဂါဖြစ်သည်။'
+    },
+    symptoms: [{
+      en: 'False smut on grains',
+      my: 'စေ့များတွင် အတုမှိုစွဲ'
+    }],
+    plantType: {
+      en: 'Rice',
+      my: 'ဆန်'
+    },
+    treatments: [],
+    recommendations: []
+  },
+  {
+    classIndex: 20,
+    name: {
+      en: 'Rice Grassy Stunt Virus',
+      my: 'ဆန် မြက်ပင်ပုံ ဗိုင်းရပ်စ် ရောဂါ'
+    },
+    description: {
+      en: 'A viral disease causing stunted growth in rice plants.',
+      my: 'ဆန်ပင်များ ကြီးထွားမှု နှေးကွေးစေသော ဗိုင်းရပ်စ်ရောဂါဖြစ်သည်။'
+    },
+    symptoms: [{
+      en: 'Stunted growth and grassy appearance',
+      my: 'ကြီးထွားမှု နှေးကွေးခြင်းနှင့် မြက်ပင်ပုံ ပြင်ဆင်ခြင်း'
+    }],
+    plantType: {
+      en: 'Rice',
+      my: 'ဆန်'
+    },
+    treatments: [],
+    recommendations: []
+  },
+  {
+    classIndex: 21,
+    name: {
+      en: 'Rice Healthy',
+      my: 'ဆန် ကျန်းမာ'
+    },
+    description: {
+      en: 'A healthy rice plant showing no signs of disease.',
+      my: 'ရောဂါလက္ခဏာ မပြသော ကျန်းမာသော ဆန်ပင်ဖြစ်သည်။'
+    },
+    symptoms: [{
+      en: 'No symptoms',
+      my: 'လက္ခဏာ မရှိ'
+    }],
+    plantType: {
+      en: 'Rice',
+      my: 'ဆန်'
+    },
+    treatments: [],
+    recommendations: []
+  },
+  {
+    classIndex: 22,
+    name: {
+      en: 'Rice Narrow Brown Spot',
+      my: 'ဆန် ကျဉ်းသော အညိုစက် ရောဂါ'
+    },
+    description: {
+      en: 'A fungal disease causing narrow brown spots on rice leaves.',
+      my: 'ဆန်အရွက်များတွင် ကျဉ်းသော အညိုစက်များ ဖြစ်စေသော မှိုရောဂါဖြစ်သည်။'
+    },
+    symptoms: [{
+      en: 'Narrow brown spots on leaves',
+      my: 'အရွက်များတွင် ကျဉ်းသော အညိုစက်များ'
+    }],
+    plantType: {
+      en: 'Rice',
+      my: 'ဆန်'
+    },
+    treatments: [],
+    recommendations: []
+  },
+  {
+    classIndex: 23,
+    name: {
+      en: 'Rice Ragged Stunt Virus',
+      my: 'ဆန် ကွဲအက်သော ဗိုင်းရပ်စ် ရောဂါ'
+    },
+    description: {
+      en: 'A viral disease causing ragged appearance and stunted growth.',
+      my: 'ကွဲအက်သော ပုံပန်းသဏ္ဍာန်နှင့် ကြီးထွားမှု နှေးကွေးစေသော ဗိုင်းရပ်စ်ရောဂါဖြစ်သည်။'
+    },
+    symptoms: [{
+      en: 'Ragged leaves and stunted growth',
+      my: 'ကွဲအက်သော အရွက်များနှင့် ကြီးထွားမှု နှေးကွေးခြင်း'
+    }],
+    plantType: {
+      en: 'Rice',
+      my: 'ဆန်'
+    },
+    treatments: [],
+    recommendations: []
+  },
+  {
+    classIndex: 24,
+    name: {
+      en: 'Rice Sheath Blight',
+      my: 'ဆန် အပေါက်ညိုရောဂါ'
+    },
+    description: {
+      en: 'A fungal disease affecting rice leaf sheaths.',
+      my: 'ဆန်အရွက်အပေါက်များကို ထိခိုက်စေသော မှိုရောဂါဖြစ်သည်။'
+    },
+    symptoms: [{
+      en: 'Blight on leaf sheaths',
+      my: 'အရွက်အပေါက်များတွင် ညိုရောဂါ'
+    }],
+    plantType: {
+      en: 'Rice',
+      my: 'ဆန်'
+    },
+    treatments: [],
+    recommendations: []
+  },
+  {
+    classIndex: 25,
+    name: {
+      en: 'Rice Sheath Rot',
+      my: 'ဆန် အပေါက်ပုပ်ရောဂါ'
+    },
+    description: {
+      en: 'A fungal disease causing rot in rice leaf sheaths.',
+      my: 'ဆန်အရွက်အပေါက်များတွင် ပုပ်ရောဂါ ဖြစ်စေသော မှိုရောဂါဖြစ်သည်။'
+    },
+    symptoms: [{
+      en: 'Rot in leaf sheaths',
+      my: 'အရွက်အပေါက်များတွင် ပုပ်ခြင်း'
+    }],
+    plantType: {
+      en: 'Rice',
+      my: 'ဆန်'
+    },
+    treatments: [],
+    recommendations: []
+  },
+  {
+    classIndex: 26,
+    name: {
+      en: 'Rice Stem Rot',
+      my: 'ဆန် ပင်စည်ပုပ်ရောဂါ'
+    },
+    description: {
+      en: 'A fungal disease causing rot in rice stems.',
+      my: 'ဆန်ပင်စည်များတွင် ပုပ်ရောဂါ ဖြစ်စေသော မှိုရောဂါဖြစ်သည်။'
+    },
+    symptoms: [{
+      en: 'Stem rot and lodging',
+      my: 'ပင်စည်ပုပ်ခြင်းနှင့် လဲကျခြင်း'
+    }],
+    plantType: {
+      en: 'Rice',
+      my: 'ဆန်'
+    },
+    treatments: [],
+    recommendations: []
+  },
+  {
+    classIndex: 27,
+    name: {
+      en: 'Rice Tungro Virus',
+      my: 'ဆန် တန်ဂရို ဗိုင်းရပ်စ် ရောဂါ'
+    },
+    description: {
+      en: 'A viral disease causing yellowing and stunted growth in rice.',
+      my: 'ဆန်ပင်များတွင် ဝါခြင်းနှင့် ကြီးထွားမှု နှေးကွေးစေသော ဗိုင်းရပ်စ်ရောဂါဖြစ်သည်။'
+    },
+    symptoms: [{
+      en: 'Yellowing and stunted growth',
+      my: 'ဝါခြင်းနှင့် ကြီးထွားမှု နှေးကွေးခြင်း'
+    }],
+    plantType: {
+      en: 'Rice',
+      my: 'ဆန်'
+    },
+    treatments: [],
+    recommendations: []
   }
 ];
 

@@ -7,17 +7,18 @@ import ProfileDropdown from '@/components/ProfileDropdown';
 
 const navItems = [
   { href: '/admin', label: 'Overview', icon: '🏠' },
-  { 
-    href: '/admin/resources', 
-    label: 'Resources', 
-    icon: '📚',
-    submenu: [
-      { href: '/admin/resources', label: 'All Resources' },
-      { href: '/admin/resources/articles', label: 'Articles' },
-      { href: '/admin/resources/videos', label: 'Videos' },
-      { href: '/admin/resources/guides', label: 'Guides' }
-    ]
-  },
+  // { 
+  //   href: '/admin/resources', 
+  //   label: 'Resources', 
+  //   icon: '📚',
+  //   submenu: [
+  //     { href: '/admin/resources', label: 'All Resources' },
+  //     { href: '/admin/resources/articles', label: 'Articles' },
+  //     { href: '/admin/resources/videos', label: 'Videos' },
+  //     { href: '/admin/resources/guides', label: 'Guides' }
+  //   ]
+  // },
+  { href: '/admin/resources', label: 'Resources', icon: '📚' },
   { href: '/admin/foods', label: 'Foods', icon: '🥗' },
   { href: '/admin/diseases', label: 'Diseases', icon: '🦠' },
   { href: '/admin/users', label: 'Users', icon: '👤' },
@@ -42,7 +43,7 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
         <nav className="flex-1 flex flex-col gap-1 px-3 py-4">
           {navItems.map((item) => (
             <div key={item.href}>
-              {item.submenu ? (
+              {/* {item?.submenu ? (
                 <div>
                   <button
                     onClick={() => setOpenSubmenu(openSubmenu === item.href ? null : item.href)}
@@ -67,7 +68,7 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
                   </button>
                   {!isCollapsed && openSubmenu === item.href && (
                     <div className="ml-4 mt-1 space-y-1">
-                      {item.submenu.map((subItem) => (
+                      {item?.submenu?.map((subItem) => (
                         <Link
                           key={subItem.href}
                           href={subItem.href}
@@ -96,7 +97,19 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
                   <span className="text-lg">{item.icon}</span>
                   {!isCollapsed && item.label}
                 </Link>
-              )}
+              )} */}
+              <Link
+                  href={item.href}
+                  className={`flex items-center ${isCollapsed ? 'justify-center' : 'gap-3'} px-4 py-3 rounded-lg font-medium transition-all duration-200
+                    ${pathname === item.href
+                      ? 'bg-blue-600 text-white'
+                      : 'hover:bg-gray-700 text-gray-300 hover:text-white'}
+                  `}
+                  title={isCollapsed ? item.label : ''}
+                >
+                  <span className="text-lg">{item.icon}</span>
+                  {!isCollapsed && item.label}
+                </Link>
             </div>
           ))}
         </nav>

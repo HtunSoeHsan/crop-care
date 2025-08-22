@@ -71,6 +71,37 @@ const loadModels = async () => {
   return models;
 };
 
+// Validate if image contains plant content
+const validatePlantImage = async (imagePath: string): Promise<boolean> => {
+  try {
+    const imageBuffer = await sharp(imagePath)
+      .resize(224, 224)
+      .removeAlpha()
+      .jpeg({ quality: 90 })
+      .toBuffer();
+
+    // Simple heuristic: check for green color dominance (plants typically have green)
+    const { dominant } = await sharp(imageBuffer).stats();
+    const greenChannel = dominant.g || 0;
+    const redChannel = dominant.r || 0;
+    const blueChannel = dominant.b || 0;
+    
+    // Check if green is dominant or if there's sufficient green content
+    const greenRatio = greenChannel / (redChannel + greenChannel + blueChannel + 1);
+    const hasGreenContent = greenRatio > 0.25; // At least 25% green content
+    
+    // Additional check: skin tone detection (common RGB ranges for human skin)
+    const isSkinTone = (redChannel > 95 && greenChannel > 40 && blueChannel > 20) &&
+                      (redChannel > greenChannel && redChannel > blueChannel) &&
+                      (Math.abs(redChannel - greenChannel) > 15);
+    
+    return hasGreenContent && !isSkinTone;
+  } catch (error) {
+    console.warn('Plant validation failed, proceeding with detection:', error);
+    return true; // If validation fails, proceed with detection
+  }
+};
+
 // Enhanced image preprocessing with multiple techniques
 const preprocessImageMultiple = async (imagePath: string): Promise<tf.Tensor[]> => {
   const tensors: tf.Tensor[] = [];
@@ -278,6 +309,16 @@ export const enhancedDetectDisease = async (req: Request, res: Response) => {
 
     // console.log(`Processing detection request for user: ${userId}`);
     console.log(`Image file: ${imagePath}, size: ${req.file.size} bytes, mimetype: ${req.file.mimetype}`);
+
+    // Validate if image contains plant content
+    const isPlantImage = await validatePlantImage(imagePath);
+    if (!isPlantImage) {
+      return res.status(400).json({
+        status: 'error',
+        message: 'Please upload an image of a plant leaf or crop. The uploaded image does not appear to contain plant material.',
+        code: 'INVALID_IMAGE_CONTENT'
+      });
+    }
 
     // Preprocess image with multiple techniques
     const preprocessedTensors = await preprocessImageMultiple(imagePath);

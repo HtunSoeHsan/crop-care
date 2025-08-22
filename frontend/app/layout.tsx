@@ -4,9 +4,9 @@ import { Inter } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
 import { notFound } from 'next/navigation';
 import { ThemeProvider } from '@/components/theme-provider';
-import ChatbotProvider from '@/components/chat/chatbot-provider';
 import { getLocale, getMessages } from 'next-intl/server';
 import ConditionalLayout from '@/components/ConditionalLayout';
+import ConditionalChatbotProvider from '@/components/ConditionalChatbotProvider';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -16,7 +16,7 @@ const inter = Inter({
 export async function generateMetadata(): Promise<Metadata> {
   // Since we're not using routing, we'll use a simple approach
   return {
-    title: "AyarCare - Plant Disease Detection",
+    title: "CropCare - Plant Disease Detection",
     description: "Identify plant diseases and get treatment recommendations"
   };
 }
@@ -38,9 +38,9 @@ export default async function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <ChatbotProvider>
+            <ConditionalChatbotProvider>
               <ConditionalLayout>{children}</ConditionalLayout>
-            </ChatbotProvider>
+            </ConditionalChatbotProvider>
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>

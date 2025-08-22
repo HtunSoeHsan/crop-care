@@ -18,6 +18,8 @@ export interface IUser extends Document {
   lastName?: string;
   locale?: string;
   isGoogleUser?: boolean;
+  isActive?: boolean;
+  lastLogin?: Date;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -67,6 +69,13 @@ const UserSchema = new Schema<IUser>({
   isGoogleUser: {
     type: Boolean,
     default: false
+  },
+  isActive: {
+    type: Boolean,
+    default: true
+  },
+  lastLogin: {
+    type: Date
   }
 }, {
   timestamps: true

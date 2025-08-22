@@ -222,9 +222,9 @@ export default function SearchPage() {
                             <div>
                               <span className="text-xs font-medium">Symptoms:</span>
                               <div className="flex flex-wrap gap-1 mt-1">
-                                {Array.isArray(disease.symptoms) ? disease.symptoms.slice(0, 3).map((symptom: string, i: number) => (
+                                {Array.isArray(disease.symptoms) ? disease.symptoms.slice(0, 3).map((symptom: any, i: number) => (
                                   <Badge key={i} variant="outline" className="text-xs">
-                                    {symptom}
+                                    {getLocalizedProperty(symptom, locale)}
                                   </Badge>
                                 )) : null}
                               </div>
@@ -345,9 +345,9 @@ export default function SearchPage() {
                         <div>
                           <span className="text-xs font-medium">Symptoms:</span>
                           <div className="flex flex-wrap gap-1 mt-1">
-                            {Array.isArray(disease.symptoms) ? disease.symptoms.slice(0, 3).map((symptom: string, i: number) => (
+                            {Array.isArray(disease.symptoms) ? disease.symptoms.slice(0, 3).map((symptom: any, i: number) => (
                               <Badge key={i} variant="outline" className="text-xs">
-                                {symptom}
+                                {getLocalizedProperty(symptom, locale)}
                               </Badge>
                             )) : null}
                           </div>

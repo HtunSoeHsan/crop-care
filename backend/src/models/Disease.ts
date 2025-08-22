@@ -10,27 +10,32 @@ export interface IDisease extends Document {
     en: string;
     my: string;
   };
-  symptoms: {
+  symptoms: Array<{
     en: string;
     my: string;
-  };
+  }>;
   causes: {
     en: string;
     my: string;
   };
-  treatment: {
+  preventions?:Array<{
     en: string;
     my: string;
-  };
-  prevention: {
-    en: string;
-    my: string;
-  };
+  }>;
   severity: 'Low' | 'Medium' | 'High' | 'Critical';
   affectedCrops: {
     en: string;
     my: string;
   };
+  treatments?: Array<{
+    name: { en: string; my: string };
+    description: { en: string; my: string };
+    steps: Array<{ en: string; my: string }>;
+  }>;
+  recommendations?: Array<{
+    en: string;
+    my: string;
+  }>;
   imageUrl?: string;
   isActive: boolean;
   createdAt: Date;
@@ -51,21 +56,21 @@ const DiseaseSchema: Schema = new Schema({
     en: { type: String, required: true, trim: true },
     my: { type: String, required: true, trim: true }
   },
-  symptoms: {
+  symptoms: [{
     en: { type: String, required: true, trim: true },
     my: { type: String, required: true, trim: true }
-  },
+  }],
   causes: {
     en: { type: String, required: true, trim: true },
     my: { type: String, required: true, trim: true }
   },
   treatment: {
-    en: { type: String, required: true, trim: true },
-    my: { type: String, required: true, trim: true }
+    en: { type: String, trim: true },
+    my: { type: String, trim: true }
   },
   prevention: {
-    en: { type: String, required: true, trim: true },
-    my: { type: String, required: true, trim: true }
+    en: { type: String, trim: true },
+    my: { type: String, trim: true }
   },
   severity: {
     type: String,
@@ -76,6 +81,24 @@ const DiseaseSchema: Schema = new Schema({
     en: { type: String, required: true, trim: true },
     my: { type: String, required: true, trim: true }
   },
+  treatments: [{
+    name: {
+      en: { type: String, required: true, trim: true },
+      my: { type: String, required: true, trim: true }
+    },
+    description: {
+      en: { type: String, required: true, trim: true },
+      my: { type: String, required: true, trim: true }
+    },
+    steps: [{
+      en: { type: String, required: true, trim: true },
+      my: { type: String, required: true, trim: true }
+    }]
+  }],
+  recommendations: [{
+    en: { type: String, required: true, trim: true },
+    my: { type: String, required: true, trim: true }
+  }],
   imageUrl: {
     type: String,
     trim: true

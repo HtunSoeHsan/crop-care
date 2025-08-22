@@ -29,7 +29,7 @@ const Logo = ({ size = 'md', variant = 'default' }: LogoProps) => {
       <span 
         className={`font-bold text-${size === 'sm' ? 'base' : size === 'md' ? 'xl' : '2xl'} ${colorClasses[variant]}`}
       >
-        AyarCare
+        CropCare
       </span>
     </div>
   );

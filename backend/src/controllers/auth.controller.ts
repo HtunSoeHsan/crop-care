@@ -98,6 +98,9 @@ export const login = async (req: Request, res: Response) => {
       });
     }
 
+    // Update last login timestamp
+    await User.findByIdAndUpdate(user._id, { lastLogin: new Date() });
+
     // Generate JWT token
     const token = jwt.sign(
       { userId: user._id },
@@ -142,6 +145,9 @@ export const googleAuth = async (req: Request, res: Response) => {
         message: 'Invalid user data from Google authentication'
       });
     }
+    
+    // Update last login timestamp
+    await User.findByIdAndUpdate(user._id, { lastLogin: new Date() });
     
     // Generate JWT token
     const token = jwt.sign(

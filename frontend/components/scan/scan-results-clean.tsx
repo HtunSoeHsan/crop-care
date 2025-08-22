@@ -425,10 +425,10 @@ const ScanResults = ({ results, image }: ScanResultsProps) => {
                     </div>
                   </TabsContent>
                   
-                  <TabsContent value="treatments" className="mt-0 space-y-6">
-                    <div className="space-y-6">
+                  <TabsContent value="treatments" className="mt-0">
+                    <div className="flex gap-6 overflow-x-auto pb-4 -mx-2 px-2">
                       {displayDetection.treatments.map((treatment, index) => (
-                        <Card key={index} className="border-slate-200">
+                        <Card key={index} className="border-slate-200 min-w-[400px] flex-shrink-0">
                           <CardHeader>
                             <CardTitle className="flex items-center gap-3 text-xl">
                               <div className="p-3 bg-blue-100 rounded-full">
@@ -466,29 +466,38 @@ const ScanResults = ({ results, image }: ScanResultsProps) => {
                     </div>
                   </TabsContent>
                   
-                  <TabsContent value="recommendations" className="mt-0 space-y-6">
-                    <div className="space-y-6">
+                  <TabsContent value="recommendations" className="mt-0 h-full">
+                    <div className="h-full overflow-y-auto pr-2">
                       {/* Real Recommendations from API */}
                       {displayDetection.recommendations && displayDetection.recommendations.length > 0 ? (
                         <Card className="border-slate-200">
-                          <CardHeader>
+                          <CardHeader className="sticky top-0 bg-white z-10 border-b">
                             <CardTitle className="flex items-center gap-3 text-xl">
                               <div className="p-3 bg-blue-100 rounded-full">
                                 <Shield className="h-6 w-6 text-blue-600" />
                               </div>
                               Expert Recommendations
+                              <Badge variant="outline" className="ml-auto">
+                                {displayDetection.recommendations.length} tips
+                              </Badge>
                             </CardTitle>
                           </CardHeader>
-                          <CardContent>
-                            <div className="bg-blue-50 rounded-lg p-6">
-                              <ul className="text-blue-800 space-y-4 text-base">
+                          <CardContent className="p-0">
+                            <div className="max-h-[400px] overflow-y-auto">
+                              <div className="p-6 space-y-4">
                                 {displayDetection.recommendations.map((recommendation, index) => (
-                                  <li key={index} className="flex items-start gap-3">
-                                    <span className="w-3 h-3 bg-blue-500 rounded-full mt-2 flex-shrink-0" />
-                                    <span className="text-lg leading-relaxed">{getLocalizedProperty(recommendation, locale)}</span>
-                                  </li>
+                                  <div key={index} className="bg-blue-50 rounded-lg p-4 border-l-4 border-blue-500">
+                                    <div className="flex items-start gap-3">
+                                      <span className="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold flex-shrink-0 mt-0.5">
+                                        {index + 1}
+                                      </span>
+                                      <p className="text-blue-800 text-base leading-relaxed">
+                                        {getLocalizedProperty(recommendation, locale)}
+                                      </p>
+                                    </div>
+                                  </div>
                                 ))}
-                              </ul>
+                              </div>
                             </div>
                           </CardContent>
                         </Card>
@@ -504,18 +513,18 @@ const ScanResults = ({ results, image }: ScanResultsProps) => {
                           </CardHeader>
                           <CardContent>
                             <div className="bg-gray-50 rounded-lg p-6">
-                              <p className="text-gray-700 text-lg mb-4">No specific recommendations available for this condition.</p>
-                              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 text-gray-800">
-                                <div className="text-center p-6 bg-white rounded-lg">
-                                  <div className="text-2xl font-bold text-gray-600 mb-3">Watering</div>
+                              <p className="text-gray-700 text-lg mb-6">No specific recommendations available for this condition.</p>
+                              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                <div className="text-center p-4 bg-white rounded-lg border">
+                                  <div className="text-xl font-bold text-gray-600 mb-2">Watering</div>
                                   <p className="text-sm text-gray-700">Maintain consistent soil moisture</p>
                                 </div>
-                                <div className="text-center p-6 bg-white rounded-lg">
-                                  <div className="text-2xl font-bold text-gray-600 mb-3">Light</div>
+                                <div className="text-center p-4 bg-white rounded-lg border">
+                                  <div className="text-xl font-bold text-gray-600 mb-2">Light</div>
                                   <p className="text-sm text-gray-700">Ensure adequate sunlight</p>
                                 </div>
-                                <div className="text-center p-6 bg-white rounded-lg">
-                                  <div className="text-2xl font-bold text-gray-600 mb-3">Nutrition</div>
+                                <div className="text-center p-4 bg-white rounded-lg border">
+                                  <div className="text-xl font-bold text-gray-600 mb-2">Nutrition</div>
                                   <p className="text-sm text-gray-700">Use balanced fertilizer</p>
                                 </div>
                               </div>

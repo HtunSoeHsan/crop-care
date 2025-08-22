@@ -11,22 +11,31 @@ interface Disease {
     en: string;
     my: string;
   };
-  symptoms: {
+  symptoms: Array<{
     en: string;
     my: string;
-  };
+  }>;
   causes: {
     en: string;
     my: string;
   };
-  treatment: {
+  treatment?: {
     en: string;
     my: string;
   };
-  prevention: {
+  prevention?: {
     en: string;
     my: string;
   };
+  treatments?: Array<{
+    name: { en: string; my: string };
+    description: { en: string; my: string };
+    steps: Array<{ en: string; my: string }>;
+  }>;
+  recommendations?: Array<{
+    en: string;
+    my: string;
+  }>;
   severity: 'Low' | 'Medium' | 'High' | 'Critical';
   affectedCrops: {
     en: string;
@@ -47,14 +56,17 @@ export default function AdminDiseasesPage() {
   const [symptomsMy, setSymptomsMy] = useState("");
   const [causesEn, setCausesEn] = useState("");
   const [causesMy, setCausesMy] = useState("");
-  const [treatmentEn, setTreatmentEn] = useState("");
-  const [treatmentMy, setTreatmentMy] = useState("");
-  const [preventionEn, setPreventionEn] = useState("");
-  const [preventionMy, setPreventionMy] = useState("");
+
   const [severity, setSeverity] = useState<'Low' | 'Medium' | 'High' | 'Critical'>('Low');
   const [affectedCropsEn, setAffectedCropsEn] = useState("");
   const [affectedCropsMy, setAffectedCropsMy] = useState("");
   const [imageUrl, setImageUrl] = useState("");
+  const [treatments, setTreatments] = useState<Array<{
+    name: {en: string, my: string},
+    description: {en: string, my: string},
+    steps: Array<{en: string, my: string}>
+  }>>([]);
+  const [recommendations, setRecommendations] = useState<Array<{en: string, my: string}>>([]);
 
   const [loading, setLoading] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -86,7 +98,7 @@ export default function AdminDiseasesPage() {
       const matchesSearch = disease.name.en.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            disease.name.my.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            disease.description.en.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           disease.symptoms.en.toLowerCase().includes(searchTerm.toLowerCase());
+                           (Array.isArray(disease.symptoms) ? disease.symptoms.some(s => s.en.toLowerCase().includes(searchTerm.toLowerCase())) : false);
       const matchesSeverity = !filterSeverity || disease.severity === filterSeverity;
       const matchesCrops = !filterCrops || disease.affectedCrops.en.toLowerCase().includes(filterCrops.toLowerCase());
       return matchesSearch && matchesSeverity && matchesCrops;
@@ -122,12 +134,16 @@ export default function AdminDiseasesPage() {
     const diseaseData = {
       name: { en: nameEn, my: nameMy },
       description: { en: descriptionEn, my: descriptionMy },
-      symptoms: { en: symptomsEn, my: symptomsMy },
+      symptoms: symptomsEn.split('\n').filter(s => s.trim()).map((symptom, i) => ({
+        en: symptom.trim(),
+        my: symptomsMy.split('\n')[i]?.trim() || symptom.trim()
+      })),
       causes: { en: causesEn, my: causesMy },
-      treatment: { en: treatmentEn, my: treatmentMy },
-      prevention: { en: preventionEn, my: preventionMy },
+
       severity,
       affectedCrops: { en: affectedCropsEn, my: affectedCropsMy },
+      treatments,
+      recommendations,
       imageUrl: imageUrl || undefined
     };
     
@@ -137,6 +153,8 @@ export default function AdminDiseasesPage() {
     const method = editingDisease ? "PUT" : "POST";
     
     try {
+
+      
       const res = await fetch(url, { 
         method, 
         headers: { 'Content-Type': 'application/json' },
@@ -151,6 +169,7 @@ export default function AdminDiseasesPage() {
       }
     } catch (error) {
       console.error('Failed to save disease:', error);
+      alert('Error: ' + (error instanceof Error ? error.message : 'Invalid JSON format'));
     } finally {
       setSubmitting(false);
     }
@@ -165,14 +184,13 @@ export default function AdminDiseasesPage() {
     setSymptomsMy("");
     setCausesEn("");
     setCausesMy("");
-    setTreatmentEn("");
-    setTreatmentMy("");
-    setPreventionEn("");
-    setPreventionMy("");
+
     setSeverity('Low');
     setAffectedCropsEn("");
     setAffectedCropsMy("");
     setImageUrl("");
+    setTreatments([]);
+    setRecommendations([]);
     setEditingDisease(null);
   }
 
@@ -181,18 +199,17 @@ export default function AdminDiseasesPage() {
     setNameMy(disease.name.my);
     setDescriptionEn(disease.description.en);
     setDescriptionMy(disease.description.my);
-    setSymptomsEn(disease.symptoms.en);
-    setSymptomsMy(disease.symptoms.my);
+    setSymptomsEn(Array.isArray(disease.symptoms) ? disease.symptoms.map(s => s.en).join('\n') : '');
+    setSymptomsMy(Array.isArray(disease.symptoms) ? disease.symptoms.map(s => s.my).join('\n') : '');
     setCausesEn(disease.causes.en);
     setCausesMy(disease.causes.my);
-    setTreatmentEn(disease.treatment.en);
-    setTreatmentMy(disease.treatment.my);
-    setPreventionEn(disease.prevention.en);
-    setPreventionMy(disease.prevention.my);
+
     setSeverity(disease.severity);
     setAffectedCropsEn(disease.affectedCrops.en);
     setAffectedCropsMy(disease.affectedCrops.my);
     setImageUrl(disease.imageUrl || "");
+    setTreatments(disease.treatments || []);
+    setRecommendations(disease.recommendations || []);
     setEditingDisease(disease);
     setDrawerOpen(true);
   }
@@ -327,20 +344,20 @@ export default function AdminDiseasesPage() {
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block mb-1 font-medium">Symptoms (English)</label>
+              <label className="block mb-1 font-medium">Symptoms (English) - One per line</label>
               <textarea
                 className="border rounded px-3 py-2 w-full min-h-[80px] resize-y"
-                placeholder="List the symptoms..."
+                placeholder="Dark spots on leaves\nWilting\nYellowing"
                 value={symptomsEn}
                 onChange={e => setSymptomsEn(e.target.value)}
                 required
               />
             </div>
             <div>
-              <label className="block mb-1 font-medium">Symptoms (Myanmar)</label>
+              <label className="block mb-1 font-medium">Symptoms (Myanmar) - One per line</label>
               <textarea
                 className="border rounded px-3 py-2 w-full min-h-[80px] resize-y"
-                placeholder="လက္ခဏာများ..."
+                placeholder="အရွက်များတွင် အမဲစက်များ\nညှိုးနွမ်းခြင်း\nအဝါရောင်ဖြစ်ခြင်း"
                 value={symptomsMy}
                 onChange={e => setSymptomsMy(e.target.value)}
                 required
@@ -371,51 +388,7 @@ export default function AdminDiseasesPage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="block mb-1 font-medium">Treatment (English)</label>
-              <textarea
-                className="border rounded px-3 py-2 w-full min-h-[80px] resize-y"
-                placeholder="Treatment methods..."
-                value={treatmentEn}
-                onChange={e => setTreatmentEn(e.target.value)}
-                required
-              />
-            </div>
-            <div>
-              <label className="block mb-1 font-medium">Treatment (Myanmar)</label>
-              <textarea
-                className="border rounded px-3 py-2 w-full min-h-[80px] resize-y"
-                placeholder="ကုသမှု နည်းများ..."
-                value={treatmentMy}
-                onChange={e => setTreatmentMy(e.target.value)}
-                required
-              />
-            </div>
-          </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="block mb-1 font-medium">Prevention (English)</label>
-              <textarea
-                className="border rounded px-3 py-2 w-full min-h-[80px] resize-y"
-                placeholder="Prevention methods..."
-                value={preventionEn}
-                onChange={e => setPreventionEn(e.target.value)}
-                required
-              />
-            </div>
-            <div>
-              <label className="block mb-1 font-medium">Prevention (Myanmar)</label>
-              <textarea
-                className="border rounded px-3 py-2 w-full min-h-[80px] resize-y"
-                placeholder="ကာကွယ်ရေး နည်းများ..."
-                value={preventionMy}
-                onChange={e => setPreventionMy(e.target.value)}
-                required
-              />
-            </div>
-          </div>
 
           <div>
             <label className="block mb-1 font-medium">Severity</label>
@@ -453,6 +426,178 @@ export default function AdminDiseasesPage() {
                 required
               />
             </div>
+          </div>
+
+          {/* Treatments */}
+          <div>
+            <div className="flex items-center justify-between mb-2">
+              <label className="block font-medium">Treatments</label>
+              <button
+                type="button"
+                onClick={() => setTreatments([...treatments, {name: {en: '', my: ''}, description: {en: '', my: ''}, steps: [{en: '', my: ''}]}])}
+                className="text-sm bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
+              >
+                + Add Treatment
+              </button>
+            </div>
+            {treatments.map((treatment, tIndex) => (
+              <div key={tIndex} className="border rounded p-4 mb-4 bg-gray-50">
+                <div className="flex justify-between items-center mb-3">
+                  <h4 className="font-medium">Treatment {tIndex + 1}</h4>
+                  <button
+                    type="button"
+                    onClick={() => setTreatments(treatments.filter((_, i) => i !== tIndex))}
+                    className="text-red-500 hover:text-red-700 text-sm"
+                  >
+                    Remove
+                  </button>
+                </div>
+                <div className="grid grid-cols-2 gap-3 mb-3">
+                  <input
+                    placeholder="Treatment name (EN)"
+                    className="border rounded px-2 py-1 text-sm"
+                    value={treatment.name.en}
+                    onChange={e => {
+                      const newTreatments = [...treatments];
+                      newTreatments[tIndex].name.en = e.target.value;
+                      setTreatments(newTreatments);
+                    }}
+                  />
+                  <input
+                    placeholder="Treatment name (MY)"
+                    className="border rounded px-2 py-1 text-sm"
+                    value={treatment.name.my}
+                    onChange={e => {
+                      const newTreatments = [...treatments];
+                      newTreatments[tIndex].name.my = e.target.value;
+                      setTreatments(newTreatments);
+                    }}
+                  />
+                </div>
+                <div className="grid grid-cols-2 gap-3 mb-3">
+                  <textarea
+                    placeholder="Description (EN)"
+                    className="border rounded px-2 py-1 text-sm h-16 resize-none"
+                    value={treatment.description.en}
+                    onChange={e => {
+                      const newTreatments = [...treatments];
+                      newTreatments[tIndex].description.en = e.target.value;
+                      setTreatments(newTreatments);
+                    }}
+                  />
+                  <textarea
+                    placeholder="Description (MY)"
+                    className="border rounded px-2 py-1 text-sm h-16 resize-none"
+                    value={treatment.description.my}
+                    onChange={e => {
+                      const newTreatments = [...treatments];
+                      newTreatments[tIndex].description.my = e.target.value;
+                      setTreatments(newTreatments);
+                    }}
+                  />
+                </div>
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm font-medium">Steps</span>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const newTreatments = [...treatments];
+                        newTreatments[tIndex].steps.push({en: '', my: ''});
+                        setTreatments(newTreatments);
+                      }}
+                      className="text-xs bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600"
+                    >
+                      + Step
+                    </button>
+                  </div>
+                  {treatment.steps.map((step, sIndex) => (
+                    <div key={sIndex} className="grid grid-cols-2 gap-2 mb-2">
+                      <input
+                        placeholder={`Step ${sIndex + 1} (EN)`}
+                        className="border rounded px-2 py-1 text-xs"
+                        value={step.en}
+                        onChange={e => {
+                          const newTreatments = [...treatments];
+                          newTreatments[tIndex].steps[sIndex].en = e.target.value;
+                          setTreatments(newTreatments);
+                        }}
+                      />
+                      <div className="flex gap-1">
+                        <input
+                          placeholder={`Step ${sIndex + 1} (MY)`}
+                          className="border rounded px-2 py-1 text-xs flex-1"
+                          value={step.my}
+                          onChange={e => {
+                            const newTreatments = [...treatments];
+                            newTreatments[tIndex].steps[sIndex].my = e.target.value;
+                            setTreatments(newTreatments);
+                          }}
+                        />
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const newTreatments = [...treatments];
+                            newTreatments[tIndex].steps = newTreatments[tIndex].steps.filter((_, i) => i !== sIndex);
+                            setTreatments(newTreatments);
+                          }}
+                          className="text-red-500 hover:text-red-700 text-xs px-1"
+                        >
+                          ×
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Recommendations */}
+          <div>
+            <div className="flex items-center justify-between mb-2">
+              <label className="block font-medium">Recommendations</label>
+              <button
+                type="button"
+                onClick={() => setRecommendations([...recommendations, {en: '', my: ''}])}
+                className="text-sm bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
+              >
+                + Add Recommendation
+              </button>
+            </div>
+            {recommendations.map((rec, rIndex) => (
+              <div key={rIndex} className="grid grid-cols-2 gap-3 mb-3">
+                <input
+                  placeholder="Recommendation (EN)"
+                  className="border rounded px-2 py-1 text-sm"
+                  value={rec.en}
+                  onChange={e => {
+                    const newRecs = [...recommendations];
+                    newRecs[rIndex].en = e.target.value;
+                    setRecommendations(newRecs);
+                  }}
+                />
+                <div className="flex gap-1">
+                  <input
+                    placeholder="Recommendation (MY)"
+                    className="border rounded px-2 py-1 text-sm flex-1"
+                    value={rec.my}
+                    onChange={e => {
+                      const newRecs = [...recommendations];
+                      newRecs[rIndex].my = e.target.value;
+                      setRecommendations(newRecs);
+                    }}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setRecommendations(recommendations.filter((_, i) => i !== rIndex))}
+                    className="text-red-500 hover:text-red-700 text-sm px-2"
+                  >
+                    ×
+                  </button>
+                </div>
+              </div>
+            ))}
           </div>
 
           <div>
@@ -539,7 +684,9 @@ export default function AdminDiseasesPage() {
                     <div className="text-sm text-gray-900 max-w-xs truncate">{disease.affectedCrops.en}</div>
                   </td>
                   <td className="px-6 py-4">
-                    <div className="text-sm text-gray-500 max-w-xs truncate">{disease.symptoms.en}</div>
+                    <div className="text-sm text-gray-500 max-w-xs truncate">
+                      {Array.isArray(disease.symptoms) ? disease.symptoms.map(s => s.en).join(', ') : 'No symptoms'}
+                    </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                     <button onClick={() => handleEdit(disease)} className="text-indigo-600 hover:text-indigo-900 mr-3">Edit</button>

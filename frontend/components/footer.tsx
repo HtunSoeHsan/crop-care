@@ -13,7 +13,7 @@ const Footer = () => {
           <div className="space-y-3">
             <div className="flex items-center gap-2">
               <Leaf className="h-5 w-5 text-primary" />
-              <span className="font-bold">AyarCare</span>
+              <span className="font-bold">CropCare</span>
             </div>
             <p className="text-sm text-muted-foreground">
               {tCommon('description')}
@@ -52,7 +52,7 @@ const Footer = () => {
         
         <div className="border-t mt-8 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} AyarCare. {t('rights')}
+            © {new Date().getFullYear()} CropCare. {t('rights')}
           </p>
           <div className="flex gap-6">
             <Link href="/privacy" className="text-sm text-muted-foreground hover:text-primary">{t('privacyPolicy')}</Link>
