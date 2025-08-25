@@ -22,6 +22,7 @@ import {
   User,
 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);
@@ -137,36 +138,154 @@ export default function AuthPage() {
   const handleSubmit = isLogin ? handleLogin : handleSignup;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 flex items-center justify-center p-4">
-      {/* Background decorative elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
-        <div className="absolute top-40 left-40 w-80 h-80 bg-pink-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
+    <div className="min-h-screen bg-gradient-to-br from-emerald-900 via-green-800 to-teal-900 relative overflow-hidden flex items-center justify-center p-4">
+      {/* Growing Plants from Bottom */}
+      <div className="absolute bottom-0 left-0 w-full h-32 overflow-hidden pointer-events-none">
+        {Array.from({length: 15}).map((_, i) => (
+          <div
+            key={i}
+            className="absolute bottom-0 text-2xl opacity-70"
+            style={{
+              left: `${i * 7}%`,
+              animationDelay: `${i * 0.3}s`,
+              animation: `growPlant ${3 + (i % 2)}s ease-out infinite`
+            }}
+          >
+            {['🌱', '🌿', '🌾', '🌳', '🌲', '🌴'][i % 6]}
+          </div>
+        ))}
       </div>
 
-      <div
-        className={`relative z-10 w-full max-w-md transform transition-all duration-700 ease-out ${
-          isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
-        }`}
-      >
-        <Card className="backdrop-blur-sm bg-white/80 dark:bg-slate-800/80 border-0 shadow-2xl">
-          <CardHeader className="text-center pb-6">
-            <div className="mx-auto w-16 h-16 bg-gradient-to-r from-green-600 to-blue-600 rounded-full flex items-center justify-center mb-4 shadow-lg">
-              <span className="text-white text-2xl font-bold">🌱</span>
+      {/* Rain Effect */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {Array.from({length: 50}).map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-0.5 h-8 bg-gradient-to-b from-blue-200/30 to-transparent"
+            style={{
+              left: `${(i * 2) % 100}%`,
+              animationDelay: `${(i * 0.1) % 5}s`,
+              animationDuration: `${2 + (i % 3)}s`,
+              animation: `rain ${2 + (i % 3)}s linear infinite`
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Agricultural Pattern Background */}
+      <div className="absolute inset-0 opacity-10">
+        {/* Spinning circles with hypnotic effect */}
+        <div className="absolute top-10 left-10 w-32 h-32 border-2 border-green-300 rounded-full animate-spin" style={{animationDuration: '18s'}}></div>
+        <div className="absolute top-1/3 right-16 w-36 h-36 border-2 border-emerald-300 rounded-full animate-spin" style={{animationDuration: '22s', animationDirection: 'reverse'}}></div>
+        <div className="absolute bottom-20 left-32 w-40 h-40 border-2 border-teal-300 rounded-full animate-spin" style={{animationDuration: '15s'}}></div>
+        <div className="absolute top-1/2 left-1/2 w-20 h-20 border border-emerald-400 rounded-full animate-spin" style={{animationDuration: '20s', animationDirection: 'reverse'}}></div>
+        <div className="absolute bottom-1/3 right-8 w-28 h-28 border-2 border-green-400 rounded-full animate-spin" style={{animationDuration: '16s'}}></div>
+        
+        {/* Ping animations with expanding circles */}
+        <div className="absolute top-32 right-20 w-24 h-24 border border-emerald-300 rounded-full animate-ping" style={{animationDuration: '4s', animationDelay: '0.5s'}}></div>
+        <div className="absolute bottom-40 right-10 w-28 h-28 border border-green-300 rounded-full animate-ping" style={{animationDuration: '4s', animationDelay: '2s'}}></div>
+        <div className="absolute top-20 left-1/3 w-22 h-22 border border-teal-400 rounded-full animate-ping" style={{animationDuration: '4s', animationDelay: '3s'}}></div>
+        <div className="absolute bottom-16 left-16 w-26 h-26 border border-emerald-400 rounded-full animate-ping" style={{animationDuration: '4s', animationDelay: '1.5s'}}></div>
+        
+        {/* Floating elements - colored circles */}
+        <div className="absolute top-20 right-1/3 w-16 h-16 bg-green-300 rounded-full opacity-8 animate-bounce" style={{animationDuration: '6s', animationDelay: '1s'}}></div>
+        <div className="absolute bottom-32 left-1/4 w-12 h-12 bg-teal-300 rounded-full opacity-8 animate-pulse" style={{animationDuration: '3s', animationDelay: '2s'}}></div>
+        <div className="absolute top-40 left-20 w-14 h-14 bg-emerald-300 rounded-full opacity-6 animate-bounce" style={{animationDuration: '5s', animationDelay: '0.8s'}}></div>
+        <div className="absolute bottom-24 right-1/4 w-18 h-18 bg-green-400 rounded-full opacity-7 animate-pulse" style={{animationDuration: '4s', animationDelay: '3.2s'}}></div>
+        <div className="absolute top-2/3 right-12 w-10 h-10 bg-teal-400 rounded-full opacity-5 animate-bounce" style={{animationDuration: '7s', animationDelay: '1.8s'}}></div>
+        
+        {/* Enhanced leaf animations with varied durations */}
+        <div className="absolute top-1/4 left-1/4 text-6xl text-green-300 opacity-20 animate-bounce" style={{animationDelay: '0.5s', animationDuration: '4s'}}>🌿</div>
+        <div className="absolute top-3/4 right-1/4 text-5xl text-emerald-300 opacity-20 animate-pulse" style={{animationDelay: '1.5s', animationDuration: '3s'}}>🌱</div>
+        <div className="absolute bottom-1/4 left-3/4 text-4xl text-teal-300 opacity-20 animate-bounce" style={{animationDelay: '2.5s', animationDuration: '5s'}}>🍃</div>
+        <div className="absolute top-16 left-1/2 text-3xl text-green-400 opacity-15 animate-pulse" style={{animationDelay: '3s', animationDuration: '2s'}}>🌾</div>
+        <div className="absolute bottom-16 right-1/3 text-5xl text-emerald-400 opacity-15 animate-bounce" style={{animationDelay: '4s', animationDuration: '6s'}}>🌳</div>
+        
+        {/* Additional plant emojis with unique animations */}
+        <div className="absolute top-12 right-8 text-4xl text-green-500 opacity-18 animate-pulse" style={{animationDelay: '1.2s', animationDuration: '3.5s'}}>🌾</div>
+        <div className="absolute bottom-8 left-8 text-6xl text-teal-400 opacity-16 animate-bounce" style={{animationDelay: '2.8s', animationDuration: '4.5s'}}>🌳</div>
+        <div className="absolute top-1/3 left-8 text-3xl text-emerald-500 opacity-14 animate-pulse" style={{animationDelay: '0.7s', animationDuration: '2.8s'}}>🍀</div>
+        <div className="absolute bottom-1/3 right-4 text-4xl text-green-600 opacity-17 animate-bounce" style={{animationDelay: '3.5s', animationDuration: '5.2s'}}>🌲</div>
+        <div className="absolute top-2/3 left-1/3 text-5xl text-teal-500 opacity-19 animate-pulse" style={{animationDelay: '1.8s', animationDuration: '3.8s'}}>🌴</div>
+      </div>
+      
+      {/* Moving gradient overlays */}
+      <div className="absolute inset-0 opacity-5 animate-pulse" style={{animationDuration: '8s'}}>
+        <div className="w-full h-full bg-gradient-to-r from-transparent via-green-200 to-transparent"></div>
+      </div>
+      <div className="absolute inset-0 opacity-4 animate-pulse" style={{animationDuration: '12s', animationDelay: '2s'}}>
+        <div className="w-full h-full bg-gradient-to-l from-transparent via-emerald-200 to-transparent"></div>
+      </div>
+      <div className="absolute inset-0 opacity-3 animate-pulse" style={{animationDuration: '10s', animationDelay: '4s'}}>
+        <div className="w-full h-full bg-gradient-to-br from-transparent via-teal-200 to-transparent"></div>
+      </div>
+      
+      {/* Subtle grid pattern */}
+      <div className="absolute inset-0 opacity-5" style={{
+        backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
+      }}></div>
+      <div className="w-full max-w-5xl flex bg-white rounded-2xl shadow-2xl overflow-hidden min-h-[500px] animate-in fade-in-0 slide-in-from-bottom-4 duration-1000 hover:shadow-3xl hover:scale-[1.02] transition-all duration-700 hover:rotate-1">
+        {/* Left Panel - Branding */}
+        <div className="hidden lg:flex lg:w-2/5 bg-gradient-to-br from-green-600 via-emerald-600 to-teal-700 relative overflow-hidden">
+          {/* Enhanced left panel animations */}
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute top-4 left-4 w-8 h-8 bg-white rounded-full animate-ping" style={{animationDelay: '1s', animationDuration: '3s'}}></div>
+            <div className="absolute bottom-8 right-8 w-6 h-6 bg-white rounded-full animate-pulse" style={{animationDelay: '2s', animationDuration: '2.5s'}}></div>
+            <div className="absolute top-1/2 right-4 w-4 h-4 bg-white rounded-full animate-bounce" style={{animationDuration: '4s', animationDelay: '0.5s'}}></div>
+            <div className="absolute top-16 right-12 w-5 h-5 bg-white rounded-full animate-ping" style={{animationDelay: '3s', animationDuration: '4s'}}></div>
+            <div className="absolute bottom-20 left-8 w-7 h-7 bg-white rounded-full animate-pulse" style={{animationDelay: '1.5s', animationDuration: '3.5s'}}></div>
+            <div className="absolute top-1/3 left-6 w-3 h-3 bg-white rounded-full animate-bounce" style={{animationDuration: '5s', animationDelay: '2.5s'}}></div>
+            <div className="absolute bottom-1/3 right-6 w-6 h-6 bg-white rounded-full animate-ping" style={{animationDelay: '4s', animationDuration: '3.2s'}}></div>
+          </div>
+          <div className="flex flex-col justify-center items-center text-white p-8">
+            <div className="mb-4">
+              <Image src="/cropcarelogo.png" alt="CropCare Logo" width={150} height={150} className="w-36 h-36 drop-shadow-2xl" />
             </div>
-            <h1 className="text-xl font-bold text-green-600 dark:text-green-400 mb-2">
-              CropCare
-            </h1>
-            <CardTitle className="text-xl font-semibold text-gray-800 dark:text-gray-200">
-              {isLogin ? "Welcome Back" : "Create Account"}
-            </CardTitle>
-            <p className="text-gray-600 dark:text-gray-300 mt-2">
-              {isLogin
-                ? "Sign in to your account to continue"
-                : "Join us and get started today"}
+            <h1 className="text-3xl font-bold mb-3 text-center">CropCare</h1>
+            <p className="text-sm text-center text-green-100 max-w-xs leading-relaxed mb-6">
+              AI-powered plant disease detection platform
             </p>
-          </CardHeader>
+            <div className="grid grid-cols-3 gap-4 text-center text-xs">
+              <div>
+                <div className="text-lg font-bold">99%</div>
+                <div className="text-green-200">Accuracy</div>
+              </div>
+              <div>
+                <div className="text-lg font-bold">50K+</div>
+                <div className="text-green-200">Users</div>
+              </div>
+              <div>
+                <div className="text-lg font-bold">24/7</div>
+                <div className="text-green-200">Support</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Panel - Form */}
+        <div className="w-full lg:w-3/5 p-8 flex items-center justify-center">
+          <div
+            className={`w-full max-w-sm transform transition-all duration-700 ease-out ${
+              isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+            }`}
+          >
+            {/* Mobile Logo */}
+            <div className="lg:hidden text-center mb-6">
+              <Image src="/cropcarelogo.png" alt="CropCare Logo" width={60} height={60} className="w-15 h-15 mx-auto mb-3" />
+              <h1 className="text-2xl font-bold text-slate-800 mb-1">CropCare</h1>
+              <p className="text-slate-600 text-sm">AI-Powered Plant Care</p>
+            </div>
+
+            <div className="text-center mb-6">
+              <h2 className="text-2xl font-bold text-slate-800 mb-2">
+                {isLogin ? "Welcome Back" : "Create Account"}
+              </h2>
+              <p className="text-slate-600 text-sm">
+                {isLogin
+                  ? "Sign in to access your dashboard"
+                  : "Join thousands of smart farmers"}
+              </p>
+            </div>
 
           <form onSubmit={handleSubmit}>
             <CardContent className="space-y-6">
@@ -331,7 +450,7 @@ export default function AuthPage() {
             <CardFooter className="flex flex-col space-y-3 pt-2">
               <Button
                 type="submit"
-                className="w-full h-12 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-medium rounded-lg transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] shadow-lg hover:shadow-xl"
+                className="w-full h-12 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold rounded-lg transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] shadow-lg hover:shadow-xl"
                 disabled={loading}
               >
                 {loading ? (
@@ -359,7 +478,7 @@ export default function AuthPage() {
 
               <Button
                 variant="outline"
-                className="w-full h-12 border-gray-200 hover:border-gray-300 hover:bg-gray-50 transition-all duration-200"
+                className="w-full h-12 border-slate-200 hover:border-slate-300 hover:bg-slate-50 transition-all duration-200 font-medium"
                 asChild
               >
                 <Link href={`${process.env.NEXT_PUBLIC_API_BASE}/auth/google`}>
@@ -401,7 +520,8 @@ export default function AuthPage() {
               </div>
             </CardFooter>
           </form>
-        </Card>
+          </div>
+        </div>
       </div>
 
       <style jsx>{`
@@ -427,6 +547,35 @@ export default function AuthPage() {
         }
         .animation-delay-4000 {
           animation-delay: 4s;
+        }
+        @keyframes rain {
+          0% {
+            transform: translateY(-100vh);
+            opacity: 0;
+          }
+          10% {
+            opacity: 1;
+          }
+          90% {
+            opacity: 1;
+          }
+          100% {
+            transform: translateY(100vh);
+            opacity: 0;
+          }
+        }
+        @keyframes growPlant {
+          0% {
+            transform: translateY(100%) scale(0);
+            opacity: 0;
+          }
+          50% {
+            opacity: 1;
+          }
+          100% {
+            transform: translateY(-50px) scale(1);
+            opacity: 0.7;
+          }
         }
       `}</style>
     </div>

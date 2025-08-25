@@ -27,7 +27,7 @@ export function DashboardStats({ className }: DashboardStatsProps) {
       const healthyScans = scans.filter(scan => scan.isHealthy).length;
       const diseaseDetected = totalScans - healthyScans;
       
-      const totalConfidence = scans.reduce((sum, scan) => sum + parseFloat(scan.confidence), 0);
+      const totalConfidence = scans.reduce((sum, scan) => sum + Number(scan.confidence), 0);
       const averageConfidence = totalScans > 0 ? totalConfidence / totalScans : 0;
       
       // Recent scans (last 7 days)

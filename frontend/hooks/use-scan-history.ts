@@ -11,17 +11,20 @@ export interface ScanHistoryItem {
   isHealthy: boolean;
   createdAt: string;
   updatedAt: string;
+  imageUrl?: string;
   diseaseInfo: {
     name: { en: string; my: string };
     description: { en: string; my: string };
-    symptoms?: Array<{ en: string; my: string }>;
-    plantType?: { en: string; my: string };
-    treatments?: Array<{
+    symptoms: Array<{ en: string; my: string }>;
+    affectedCrops: { en: string; my: string };
+    treatments: Array<{
       name: { en: string; my: string };
       description: { en: string; my: string };
       steps: Array<{ en: string; my: string }>;
     }>;
-    recommendations?: Array<{ en: string; my: string }>;
+    recommendations: Array<{ en: string; my: string }>;
+    severity: string;
+    classIndex: number;
   };
 }
 

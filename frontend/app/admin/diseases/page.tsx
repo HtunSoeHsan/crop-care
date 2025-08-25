@@ -660,7 +660,7 @@ export default function AdminDiseasesPage() {
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center">
                       {disease.imageUrl ? (
-                        <img src={disease.imageUrl} alt={disease.name} className="w-10 h-10 rounded object-cover mr-3" />
+                        <img src={disease.imageUrl} alt={disease.name.en} className="w-10 h-10 rounded object-cover mr-3" />
                       ) : (
                         <div className="w-10 h-10 bg-gray-200 rounded mr-3"></div>
                       )}

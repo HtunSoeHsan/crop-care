@@ -1,45 +1,67 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import mongoose, { Document, Schema } from 'mongoose';
 
 export interface IHealthyFood extends Document {
-  name: {
+  title: {
     en: string;
     my: string;
   };
-  category: string;
-  nutrients: string[];
-  benefits: {
+  description: {
     en: string;
     my: string;
+  };
+  imageUrl?: string;
+  keyBenefits: {
+    en: string[];
+    my: string[];
+  };
+  keyNutrients: {
+    en: string[];
+    my: string[];
   };
   season: string;
-  tags: string[];
-  featured: boolean;
-  views: number;
+  category: string;
+  isActive: boolean;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
-const HealthyFoodSchema = new Schema<IHealthyFood>({
-  name: {
-    en: { type: String, required: true },
-    my: { type: String, required: true }
+const HealthyFoodSchema: Schema = new Schema({
+  title: {
+    en: { type: String, required: true, trim: true },
+    my: { type: String, required: true, trim: true }
   },
-  category: { type: String, required: true },
-  nutrients: [{ type: String }],
-  benefits: {
-    en: { type: String, required: true },
-    my: { type: String, required: true }
+  description: {
+    en: { type: String, required: true, trim: true },
+    my: { type: String, required: true, trim: true }
   },
-  season: { type: String, required: true },
-  tags: [{ type: String }],
-  featured: { type: Boolean, default: false },
-  views: { type: Number, default: 0 }
+  imageUrl: {
+    type: String,
+    trim: true
+  },
+  keyBenefits: {
+    en: [{ type: String, required: true, trim: true }],
+    my: [{ type: String, required: true, trim: true }]
+  },
+  keyNutrients: {
+    en: [{ type: String, required: true, trim: true }],
+    my: [{ type: String, required: true, trim: true }]
+  },
+  season: {
+    type: String,
+    required: true,
+    enum: ['Spring', 'Summer', 'Fall', 'Winter', 'Year-round']
+  },
+  category: {
+    type: String,
+    required: true,
+    enum: ['Fruits', 'Vegetables', 'Grains', 'Proteins', 'Dairy', 'Nuts & Seeds']
+  },
+  isActive: {
+    type: Boolean,
+    default: true
+  }
 }, {
   timestamps: true
 });
 
-HealthyFoodSchema.index({ 'name.en': 'text', 'name.my': 'text', 'benefits.en': 'text', 'benefits.my': 'text' });
-HealthyFoodSchema.index({ category: 1 });
-HealthyFoodSchema.index({ season: 1 });
-HealthyFoodSchema.index({ nutrients: 1 });
-
-const HealthyFood = mongoose.model<IHealthyFood>('HealthyFood', HealthyFoodSchema);
-export default HealthyFood;
+export default mongoose.model<IHealthyFood>('HealthyFood', HealthyFoodSchema);

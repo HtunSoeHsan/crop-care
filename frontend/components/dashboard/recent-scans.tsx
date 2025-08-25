@@ -26,8 +26,8 @@ export function RecentScans({ limit = 4, className }: RecentScansProps) {
   const { data, loading, error } = useScanHistory(1, limit);
   const locale = useLocale();
 
-  const getHealthStatus = (isHealthy: boolean, confidence: string) => {
-    const conf = parseFloat(confidence);
+  const getHealthStatus = (isHealthy: boolean, confidence: number) => {
+    const conf = confidence;
     if (isHealthy) {
       return { label: 'Healthy', color: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' };
     } else if (conf > 80) {
@@ -106,7 +106,7 @@ export function RecentScans({ limit = 4, className }: RecentScansProps) {
       <CardContent>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {data.scans.map((scan: ScanHistoryItem) => {
-            const healthStatus = getHealthStatus(scan.isHealthy, scan.confidence);
+            const healthStatus = getHealthStatus(scan.isHealthy, Number(scan.confidence));
             
             return (
               <Card key={scan._id} className="hover:shadow-md transition-shadow">
@@ -117,7 +117,7 @@ export function RecentScans({ limit = 4, className }: RecentScansProps) {
                         {getLocalizedProperty(scan.diseaseInfo.name, locale)}
                       </p>
                       <p className="text-xs text-muted-foreground truncate">
-                        {scan.diseaseInfo.plantType ? getLocalizedProperty(scan.diseaseInfo.plantType, locale) : 'Unknown Plant'}
+                        {getLocalizedProperty(scan.diseaseInfo.affectedCrops, locale)}
                       </p>
                     </div>
                     
@@ -131,7 +131,7 @@ export function RecentScans({ limit = 4, className }: RecentScansProps) {
                     </div>
                     
                     <div className="text-xs text-muted-foreground">
-                      Confidence: {parseFloat(scan.confidence).toFixed(1)}%
+                      Confidence: {Number(scan.confidence).toFixed(1)}%
                     </div>
                     
                     <Dialog>
@@ -159,7 +159,7 @@ export function RecentScans({ limit = 4, className }: RecentScansProps) {
                             </div>
                             <div>
                               <p className="text-sm font-medium text-muted-foreground">Confidence</p>
-                              <p className="text-sm font-semibold">{parseFloat(scan.confidence).toFixed(1)}%</p>
+                              <p className="text-sm font-semibold">{Number(scan.confidence).toFixed(1)}%</p>
                             </div>
                           </div>
 

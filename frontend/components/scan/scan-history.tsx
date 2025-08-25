@@ -81,7 +81,7 @@ export default function ScanHistory({ limit = 5, showHeader = true }: ScanHistor
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="font-medium text-sm truncate">
-                    {scan.primaryResult.name.en}
+                    {scan.diseaseInfo.name.en}
                   </p>
                   <div className="flex items-center gap-2 text-xs text-gray-500">
                     <Calendar className="h-3 w-3" />
@@ -94,7 +94,7 @@ export default function ScanHistory({ limit = 5, showHeader = true }: ScanHistor
                       ? 'bg-green-100 text-green-800' 
                       : 'bg-red-100 text-red-800'
                   }`}>
-                    {scan.primaryResult.confidence}%
+                    {Number(scan.confidence).toFixed(1)}%
                   </span>
                 </div>
               </div>

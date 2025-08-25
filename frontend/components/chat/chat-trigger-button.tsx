@@ -26,7 +26,7 @@ const ChatTriggerButton = ({
     <div className={`fixed bottom-6 right-6 z-40 ${className}`}>
       <div className="relative">
         {/* Status Badge */}
-        <Badge className={`absolute -top-2 -right-2 text-white text-xs px-2 py-1 ${
+        {/* <Badge className={`absolute -top-2 -right-2 text-white text-xs px-2 py-1 ${
           hasScanResults 
             ? 'bg-green-500 animate-pulse' 
             : 'bg-blue-500'
@@ -42,7 +42,7 @@ const ChatTriggerButton = ({
               Ask AI
             </>
           )}
-        </Badge>
+        </Badge> */}
         
         {/* Main Chat Button */}
         <Button

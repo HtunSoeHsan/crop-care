@@ -138,7 +138,21 @@ const ScanForm = () => {
     <div className="space-y-8">
       <div className="text-center mb-8">
         <h2 className="text-2xl lg:text-3xl font-bold text-slate-900 mb-3">Plant Disease Detection</h2>
-        <p className="text-slate-600 text-lg">Upload a clear photo of your plant to get instant AI-powered analysis</p>
+        <p className="text-slate-600 text-lg mb-4">Upload a clear photo of your plant to get instant AI-powered analysis</p>
+        
+        {/* Model Limitations Warning */}
+        <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 max-w-4xl mx-auto">
+          <div className="flex items-start gap-3">
+            <AlertCircle className="h-5 w-5 text-amber-600 flex-shrink-0 mt-0.5" />
+            <div className="text-left">
+              <h3 className="text-sm font-semibold text-amber-800 mb-1">Model Limitations</h3>
+              <p className="text-sm text-amber-700">
+                Our AI model is trained on specific plant types and diseases. It works best with <strong>Apple, Corn, Grape, Rice, Blueberry, and Cherry</strong> plants. 
+                Detection accuracy may vary for other plant species or diseases not included in our training dataset.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
       
       <form onSubmit={handleSubmit} className="space-y-6">

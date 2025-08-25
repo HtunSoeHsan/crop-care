@@ -66,8 +66,8 @@ export function ScanHistory({ limit = 10 }: ScanHistoryProps) {
     }
   };
 
-  const getHealthStatus = (isHealthy: boolean, confidence: string) => {
-    const conf = parseFloat(confidence);
+  const getHealthStatus = (isHealthy: boolean, confidence: number) => {
+    const conf = confidence;
     if (isHealthy) {
       return { label: 'Healthy', variant: 'default' as const, color: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' };
     } else if (conf > 80) {
@@ -119,6 +119,8 @@ export function ScanHistory({ limit = 10 }: ScanHistoryProps) {
     );
   }
 
+  console.log(data);
+
   if (!data || data.scans.length === 0) {
     return (
       <Card>
@@ -150,7 +152,7 @@ export function ScanHistory({ limit = 10 }: ScanHistoryProps) {
 
       <div className="space-y-4">
         {data.scans.map((scan: ScanHistoryItem) => {
-          const healthStatus = getHealthStatus(scan.isHealthy, scan.confidence);
+          const healthStatus = getHealthStatus(scan.isHealthy, Number(scan.confidence));
           
           return (
             <Card key={scan._id}>
@@ -168,9 +170,9 @@ export function ScanHistory({ limit = 10 }: ScanHistoryProps) {
                     <p className="text-muted-foreground mb-2">
                       {getLocalizedProperty(scan.diseaseInfo.description, locale)}
                     </p>
-                    {scan.diseaseInfo.plantType && (
+                    {scan.diseaseInfo.affectedCrops && (
                       <p className="text-sm text-muted-foreground">
-                        Plant Type: {getLocalizedProperty(scan.diseaseInfo.plantType, locale)}
+                        Affected Crops: {getLocalizedProperty(scan.diseaseInfo.affectedCrops, locale)}
                       </p>
                     )}
                   </div>
@@ -189,7 +191,7 @@ export function ScanHistory({ limit = 10 }: ScanHistoryProps) {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                   <div>
                     <p className="text-sm font-medium text-muted-foreground">Confidence</p>
-                    <p className="text-lg font-semibold">{parseFloat(scan.confidence).toFixed(1)}%</p>
+                    <p className="text-lg font-semibold">{Number(scan.confidence).toFixed(1)}%</p>
                   </div>
                   <div>
                     <p className="text-sm font-medium text-muted-foreground">Class Index</p>
@@ -243,7 +245,7 @@ export function ScanHistory({ limit = 10 }: ScanHistoryProps) {
                           </div>
                           <div>
                             <p className="text-sm font-medium text-muted-foreground">Confidence</p>
-                            <p className="text-sm font-semibold">{parseFloat(scan.confidence).toFixed(1)}%</p>
+                            <p className="text-sm font-semibold">{Number(scan.confidence).toFixed(1)}%</p>
                           </div>
                         </div>
 
@@ -252,12 +254,15 @@ export function ScanHistory({ limit = 10 }: ScanHistoryProps) {
                           <p className="text-sm">{getLocalizedProperty(scan.diseaseInfo.description, locale)}</p>
                         </div>
 
-                        {scan.diseaseInfo.plantType && (
-                          <div>
-                            <p className="text-sm font-medium text-muted-foreground mb-2">Plant Type</p>
-                            <p className="text-sm">{getLocalizedProperty(scan.diseaseInfo.plantType, locale)}</p>
-                          </div>
-                        )}
+                        <div>
+                          <p className="text-sm font-medium text-muted-foreground mb-2">Affected Crops</p>
+                          <p className="text-sm">{getLocalizedProperty(scan.diseaseInfo.affectedCrops, locale)}</p>
+                        </div>
+
+                        <div>
+                          <p className="text-sm font-medium text-muted-foreground mb-2">Severity</p>
+                          <Badge variant="outline">{scan.diseaseInfo.severity}</Badge>
+                        </div>
 
                         {scan.diseaseInfo.symptoms && scan.diseaseInfo.symptoms.length > 0 && (
                           <div>

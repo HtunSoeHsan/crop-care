@@ -56,10 +56,10 @@ export const searchAll = async (req: Request, res: Response) => {
       
       if (query) {
         searchConditions.$or = [
-          { [`name.${language}`]: { $regex: query, $options: 'i' } },
-          { [`benefits.${language}`]: { $regex: query, $options: 'i' } },
-          { tags: { $regex: query, $options: 'i' } },
-          { nutrients: { $regex: query, $options: 'i' } }
+          { [`title.${language}`]: { $regex: query, $options: 'i' } },
+          { [`description.${language}`]: { $regex: query, $options: 'i' } },
+          { [`keyBenefits.${language}`]: { $in: [new RegExp(query, 'i')] } },
+          { [`keyNutrients.${language}`]: { $in: [new RegExp(query, 'i')] } }
         ];
       }
       
@@ -175,10 +175,10 @@ export const searchHealthyFoods = async (req: Request, res: Response) => {
     
     if (query) {
       searchConditions.$or = [
-        { [`name.${language}`]: { $regex: query, $options: 'i' } },
-        { [`benefits.${language}`]: { $regex: query, $options: 'i' } },
-        { tags: { $regex: query, $options: 'i' } },
-        { nutrients: { $regex: query, $options: 'i' } }
+        { [`title.${language}`]: { $regex: query, $options: 'i' } },
+        { [`description.${language}`]: { $regex: query, $options: 'i' } },
+        { [`keyBenefits.${language}`]: { $in: [new RegExp(query, 'i')] } },
+        { [`keyNutrients.${language}`]: { $in: [new RegExp(query, 'i')] } }
       ];
     }
     
@@ -187,15 +187,12 @@ export const searchHealthyFoods = async (req: Request, res: Response) => {
     }
     
     if (season) {
-      searchConditions.$or = [
-        { season: season },
-        { season: 'year-round' }
-      ];
+      searchConditions.season = { $in: [season, 'Year-round'] };
     }
     
     if (nutrients) {
       const nutrientArray = (nutrients as string).split(',').map(n => n.trim());
-      searchConditions.nutrients = { $in: nutrientArray };
+      searchConditions.keyNutrients = { $in: nutrientArray };
     }
 
     const foods = await HealthyFood.find(searchConditions).limit(50);
@@ -251,11 +248,11 @@ export const getSearchSuggestions = async (req: Request, res: Response) => {
     
     if (!type || type === 'foods') {
       const foods = await HealthyFood.find({
-        [`name.${language}`]: { $regex: query, $options: 'i' }
-      }).limit(5).select(`name.${language}`);
+        [`title.${language}`]: { $regex: query, $options: 'i' }
+      }).limit(5).select(`title.${language}`);
       
       foods.forEach(food => {
-        suggestions.push(food.name[language as keyof typeof food.name]);
+        suggestions.push(food.title[language as keyof typeof food.title]);
       });
     }
 

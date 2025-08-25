@@ -43,7 +43,7 @@ const Footer = () => {
           <div>
             <h3 className="text-sm font-medium mb-3">{t('contact')}</h3>
             <ul className="space-y-2">
-              <li className="text-sm text-muted-foreground">support@ayarcare.com</li>
+              <li className="text-sm text-muted-foreground">support@cropcare.com</li>
               <li className="text-sm text-muted-foreground">+1 (555) 123-4567</li>
               <li className="text-sm text-muted-foreground">123 Green Street, Plant City</li>
             </ul>

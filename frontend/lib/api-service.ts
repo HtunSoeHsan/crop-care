@@ -252,17 +252,26 @@ export interface SuggestionsResponse {
 export interface ScanHistoryItem {
   _id: string;
   userId: string;
-  imageUrl: string;
-  results: ScanDetectionResult[];
-  primaryResult: {
-    classIndex: number;
-    name: MultilingualText;
-    confidence: string;
-  };
+  classIndex: number;
+  confidence: string;
   isHealthy: boolean;
-  confidence: number;
   createdAt: string;
   updatedAt: string;
+  imageUrl?: string;
+  diseaseInfo: {
+    name: MultilingualText;
+    description: MultilingualText;
+    symptoms: MultilingualText[];
+    affectedCrops: MultilingualText;
+    treatments: Array<{
+      name: MultilingualText;
+      description: MultilingualText;
+      steps: MultilingualText[];
+    }>;
+    recommendations: MultilingualText[];
+    severity: string;
+    classIndex: number;
+  };
 }
 
 export interface ScanHistoryResponse {
@@ -293,10 +302,11 @@ export const ApiService = {
       const response = await fetch(`${API_URL}/detections/detect`, {
         method: 'POST',
         body: formData,
+        credentials: 'include', // Include cookies for authentication    
       });
-
       if (!response.ok) {
         const errorData = await response.json();
+        console.log("scanPlant error response", errorData);
         throw new Error(errorData.error || 'Failed to scan plant');
       }
       

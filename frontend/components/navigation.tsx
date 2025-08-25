@@ -10,7 +10,7 @@ import { Leaf, Search, Home, Book, LineChart, Menu, X, CloudRain } from 'lucide-
 import { ModeToggle } from '@/components/mode-toggle';
 import { LanguageSwitcher } from '@/components/language-switcher';
 import ProfileDropdown from './ProfileDropdown';
-
+import Image from 'next/image';
 const Navigation = () => {
   const t = useTranslations('navigation');
   const pathname = usePathname();
@@ -30,7 +30,8 @@ const Navigation = () => {
       <div className="container mx-auto px-4 flex h-16 items-center justify-between">
         <div className="flex items-center gap-2">
           <Link href="/" className="flex items-center gap-2">
-            <Leaf className="h-6 w-6 text-primary" />
+            <Image src="/cropcarelogo.png" alt="CropCare Logo" width={24} height={24} className="h-6 w-6" />
+            {/* <Image src={"./cropcarelogo.png"} alt='logo'/> */}
             <span className="text-xl font-bold">CropCare</span>
           </Link>
         </div>

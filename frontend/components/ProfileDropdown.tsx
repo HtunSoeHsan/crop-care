@@ -57,7 +57,11 @@ export default function ProfileDropdown() {
         });
 
         if (!res.ok) {
-          throw new Error('Unauthorized');
+          if (res.status === 401) {
+            router.push('/login');
+            return;
+          }
+          throw new Error('Failed to fetch profile');
         }
 
         const data = await res.json();
