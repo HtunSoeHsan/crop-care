@@ -1,9 +1,5 @@
 import { Request, Response } from 'express';
 import axios from 'axios';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
-
 interface WeatherData {
   temperature: number;
   humidity: number;

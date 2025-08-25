@@ -20,6 +20,7 @@ import scanHistoryRoutes from './routes/scan-history.routes';
 import analyticsRoutes from './routes/analytics.routes';
 import resourceRoutes from './routes/resource.routes';
 import uploadRoutes from './routes/upload.routes';
+import trainingRoutes from './routes/training.routes';
 import cookieParser from 'cookie-parser'
 // Import passport (you must have this file)
 import passport from 'passport';
@@ -79,6 +80,7 @@ app.use('/api/scan-history', scanHistoryRoutes);
 app.use('/api/analytics', analyticsRoutes);
 app.use('/api/resources', resourceRoutes);
 app.use('/api/upload', uploadRoutes);
+app.use('/api/training', trainingRoutes);
 // Error handling middleware
 app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
   console.error('Unhandled error:', err.stack);

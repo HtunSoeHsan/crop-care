@@ -7,3 +7,4 @@ export { default as Disease, IDisease } from './Disease';
 export { default as PlantGuide, IPlantGuide } from './PlantGuide';
 export { default as HealthyFood, IHealthyFood } from './HealthyFood';
 export { default as Resource, IResource } from './Resource';
+export { TrainingJob, ITrainingJob } from './TrainingJob';
