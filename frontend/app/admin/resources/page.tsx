@@ -121,7 +121,7 @@ export default function AdminResourcesPage() {
   async function fetchResources() {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/api/admin/resources", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE}/admin/resources`, {
         credentials: 'include'
       });
       if (res.ok) {
@@ -146,7 +146,7 @@ export default function AdminResourcesPage() {
       formData.append('pdf', pdfFile);
       
       try {
-        const uploadRes = await fetch('http://localhost:5000/api/upload/pdf', {
+        const uploadRes = await fetch(`${process.env.NEXT_PUBLIC_API_BASE}/upload/pdf`, {
           method: 'POST',
           body: formData
         });
@@ -179,8 +179,8 @@ export default function AdminResourcesPage() {
     };
     
     const url = editingResource 
-      ? `http://localhost:5000/api/admin/resources/${editingResource._id}` 
-      : "http://localhost:5000/api/admin/resources";
+      ? `${process.env.NEXT_PUBLIC_API_BASE}/admin/resources/${editingResource._id}` 
+      : `${process.env.NEXT_PUBLIC_API_BASE}/admin/resources`;
     const method = editingResource ? "PUT" : "POST";
     
     try {
@@ -244,7 +244,7 @@ export default function AdminResourcesPage() {
     if (!deleteModal.resource) return;
     setDeleting(true);
     try {
-      const res = await fetch(`http://localhost:5000/api/admin/resources/${deleteModal.resource._id}`, { 
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE}/admin/resources/${deleteModal.resource._id}`, { 
         method: "DELETE",
         credentials: 'include'
       });
@@ -470,7 +470,7 @@ export default function AdminResourcesPage() {
                       const formData = new FormData();
                       formData.append('pdf', file);
                       try {
-                        const res = await fetch('http://localhost:5000/api/upload/pdf', {
+                        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE}/upload/pdf`, {
                           method: 'POST',
                           body: formData
                         });

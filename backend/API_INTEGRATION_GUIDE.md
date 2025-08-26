@@ -3,7 +3,7 @@
 ## Overview
 This document provides comprehensive information about all available API endpoints and features in the Ayar-Care plant disease detection and prevention system.
 
-**Base URL:** `http://localhost:5000/api`
+**Base URL:** `${process.env.NEXT_PUBLIC_API_BASE}`
 **Frontend URL:** `http://localhost:4000` (configurable via `FRONTEND_URL` env variable)
 
 ## Authentication

@@ -214,12 +214,12 @@ const response = await fetch('/api/chatbot/chat', {
 
 ### Health Check
 ```bash
-curl http://localhost:5000/api/chatbot/health
+curl ${process.env.NEXT_PUBLIC_API_BASE}/chatbot/health
 ```
 
 ### Test Chat
 ```bash
-curl -X POST http://localhost:5000/api/chatbot/chat \
+curl -X POST ${process.env.NEXT_PUBLIC_API_BASE}/chatbot/chat \
   -H "Content-Type: application/json" \
   -d '{"message": "What are the symptoms of powdery mildew?"}'
 ```

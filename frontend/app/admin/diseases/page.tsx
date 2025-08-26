@@ -115,7 +115,7 @@ export default function AdminDiseasesPage() {
   async function fetchDiseases() {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/api/admin/diseases", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE}/admin/diseases`, {
         credentials: 'include'
       });
       if (res.ok) {
@@ -148,8 +148,8 @@ export default function AdminDiseasesPage() {
     };
     
     const url = editingDisease 
-      ? `http://localhost:5000/api/admin/diseases/${editingDisease._id}` 
-      : "http://localhost:5000/api/admin/diseases";
+      ? `${process.env.NEXT_PUBLIC_API_BASE}/admin/diseases/${editingDisease._id}` 
+      : `${process.env.NEXT_PUBLIC_API_BASE}/admin/diseases`;
     const method = editingDisease ? "PUT" : "POST";
     
     try {
@@ -218,7 +218,7 @@ export default function AdminDiseasesPage() {
     if (!deleteModal.disease) return;
     setDeleting(true);
     try {
-      const res = await fetch(`http://localhost:5000/api/admin/diseases/${deleteModal.disease._id}`, { 
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE}/admin/diseases/${deleteModal.disease._id}`, { 
         method: "DELETE",
         credentials: 'include'
       });

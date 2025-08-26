@@ -5,7 +5,7 @@
 import { isPlantHealthy } from "./utils";
 
 // Define the base URL for API requests
-const API_URL = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:5000/api';
+const API_URL = process.env.NEXT_PUBLIC_API_BASE;
 
 // Multilingual text interface
 export interface MultilingualText {

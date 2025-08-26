@@ -28,7 +28,7 @@ export function useAnalytics() {
       setLoading(true);
       setError(null);
       const token = ApiService.getAuthToken();
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:5000/api'}/analytics/scans`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE}/analytics/scans`, {
         credentials: 'include',
       });
 

@@ -27,7 +27,7 @@ export default function ArticlePage() {
   useEffect(() => {
     const fetchArticle = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/resources/${params.id}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE}/resources/${params.id}`);
         if (response.ok) {
           const data = await response.json();
           setArticle(data);

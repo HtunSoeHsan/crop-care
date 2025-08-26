@@ -56,7 +56,7 @@ export default function AdminUsersPage() {
   async function fetchUsers() {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/api/admin/users", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE}/admin/users`, {
         credentials: 'include'
       });
       if (res.ok) {
@@ -70,7 +70,7 @@ export default function AdminUsersPage() {
 
   async function toggleUserStatus(userId: string, currentStatus: boolean) {
     try {
-      const res = await fetch(`http://localhost:5000/api/admin/users/${userId}/toggle-status`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE}/admin/users/${userId}/toggle-status`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -87,7 +87,7 @@ export default function AdminUsersPage() {
   async function updateUserRole(userId: string, newRole: 'user' | 'admin') {
     try {
       console.log('Updating user role:', { userId, newRole });
-      const res = await fetch(`http://localhost:5000/api/admin/users/${userId}/role`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE}/admin/users/${userId}/role`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -111,7 +111,7 @@ export default function AdminUsersPage() {
     if (!deleteModal.user) return;
     setDeleting(true);
     try {
-      const res = await fetch(`http://localhost:5000/api/admin/users/${deleteModal.user._id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE}/admin/users/${deleteModal.user._id}`, {
         method: "DELETE",
         credentials: 'include'
       });

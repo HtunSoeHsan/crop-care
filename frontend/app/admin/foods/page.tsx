@@ -78,7 +78,7 @@ export default function AdminFoodsPage() {
   async function fetchFoods() {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/api/admin/healthy-foods", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE}/admin/healthy-foods`, {
         credentials: 'include'
       });
       if (res.ok) {
@@ -117,8 +117,8 @@ export default function AdminFoodsPage() {
     };
     
     const url = editingFood 
-      ? `http://localhost:5000/api/admin/healthy-foods/${editingFood._id}` 
-      : "http://localhost:5000/api/admin/healthy-foods";
+      ? `${process.env.NEXT_PUBLIC_API_BASE}/admin/healthy-foods/${editingFood._id}` 
+      : `${process.env.NEXT_PUBLIC_API_BASE}/admin/healthy-foods`;
     const method = editingFood ? "PUT" : "POST";
     
     try {
@@ -180,7 +180,7 @@ export default function AdminFoodsPage() {
     if (!deleteModal.food) return;
     setDeleting(true);
     try {
-      const res = await fetch(`http://localhost:5000/api/admin/healthy-foods/${deleteModal.food._id}`, { 
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE}/admin/healthy-foods/${deleteModal.food._id}`, { 
         method: "DELETE",
         credentials: 'include'
       });

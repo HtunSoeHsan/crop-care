@@ -37,7 +37,7 @@ connectDatabase();
 
 // Middleware
 app.use(cors({
-  origin: ['http://localhost:4000'],
+  origin: ['http://localhost:4000', 'https://cropcare.studentactivities.online'],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],

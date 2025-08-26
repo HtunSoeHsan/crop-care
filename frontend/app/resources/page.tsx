@@ -33,7 +33,7 @@ export default function ResourcesPage() {
   useEffect(() => {
     const fetchResources = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/resources');
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE}/resources`);
         const data = await response.json();
         setResources(data);
       } catch (error) {

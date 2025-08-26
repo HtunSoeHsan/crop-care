@@ -49,7 +49,7 @@ export function TrainingJobCard({ job, onUpdate }: TrainingJobCardProps) {
 
   const handleStop = async () => {
     try {
-      const API_URL = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:5000/api';
+      const API_URL = process.env.NEXT_PUBLIC_API_BASE;
       await fetch(`${API_URL}/training/stop/${job._id}`, {
         method: 'POST'
       });
@@ -61,7 +61,7 @@ export function TrainingJobCard({ job, onUpdate }: TrainingJobCardProps) {
 
   const fetchLogs = async () => {
     try {
-      const API_URL = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:5000/api';
+      const API_URL = process.env.NEXT_PUBLIC_API_BASE;
       const response = await fetch(`${API_URL}/training/jobs/${job._id}`);
       const data = await response.json();
       setLogs(data.logs || []);

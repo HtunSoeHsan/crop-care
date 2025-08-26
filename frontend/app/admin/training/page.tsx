@@ -24,7 +24,7 @@ export default function TrainingPage() {
 
   const fetchJobs = async () => {
     try {
-      const API_URL = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:5000/api';
+      const API_URL = process.env.NEXT_PUBLIC_API_BASE;
       const response = await fetch(`${API_URL}/training/jobs`);
       const data = await response.json();
       setJobs(data);

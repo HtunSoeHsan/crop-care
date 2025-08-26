@@ -40,7 +40,7 @@ export function TrainingModal({ isOpen, onClose, onTrainingStart }: TrainingModa
 
   const fetchDatasets = async () => {
     try {
-      const API_URL = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:5000/api';
+      const API_URL = process.env.NEXT_PUBLIC_API_BASE;
       const response = await fetch(`${API_URL}/training/datasets`);
       const data = await response.json();
       setDatasetInfo(data);
@@ -55,7 +55,7 @@ export function TrainingModal({ isOpen, onClose, onTrainingStart }: TrainingModa
     
     setLoading(true);
     try {
-      const API_URL = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:5000/api';
+      const API_URL = process.env.NEXT_PUBLIC_API_BASE;
       const response = await fetch(`${API_URL}/training/start`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

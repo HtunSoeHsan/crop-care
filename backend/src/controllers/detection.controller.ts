@@ -310,14 +310,14 @@ export const enhancedDetectDisease = async (req: Request, res: Response) => {
     console.log(`Image file: ${imagePath}, size: ${req.file.size} bytes, mimetype: ${req.file.mimetype}`);
 
     // Validate if image contains plant content
-    const isPlantImage = await validatePlantImage(imagePath);
-    if (!isPlantImage) {
-      return res.status(400).json({
-        status: 'error',
-        message: 'Please upload an image of a plant leaf or crop. The uploaded image does not appear to contain plant material.',
-        code: 'INVALID_IMAGE_CONTENT'
-      });
-    }
+    // const isPlantImage = await validatePlantImage(imagePath);
+    // if (!isPlantImage) {
+    //   return res.status(400).json({
+    //     status: 'error',
+    //     message: 'Please upload an image of a plant leaf or crop. The uploaded image does not appear to contain plant material.',
+    //     code: 'INVALID_IMAGE_CONTENT'
+    //   });
+    // }
 
     // Preprocess image with multiple techniques
     const preprocessedTensors = await preprocessImageMultiple(imagePath);
