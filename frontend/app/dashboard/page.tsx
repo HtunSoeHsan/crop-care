@@ -42,7 +42,7 @@ export default function DashboardPage() {
           <DashboardStats />
           
           {/* Weather Alerts Section */}
-          <WeatherAlerts />
+          {/* <WeatherAlerts /> */}
           
 
           

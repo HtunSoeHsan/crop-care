@@ -1,0 +1,202 @@
+{
+  "common": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "medicines": "Medicines",
+    "resources": "Resources",
+    "scan": "Scan",
+    "search": "Search",
+    "language": "Language",
+    "english": "English",
+    "burmese": "Burmese"
+  },
+  "home": {
+    "title": "AyarCare - Plant Disease Detection",
+    "description": "Identify plant diseases and get treatment recommendations",
+    "getStarted": "Get Started",
+    "features": {
+      "diseaseDetection": "Disease Detection",
+      "treatment": "Treatment Recommendations",
+      "resources": "Educational Resources",
+      "diseaseDetectionDesc": "Upload photos of your plants to identify diseases with our advanced AI-powered detection system.",
+      "treatmentDesc": "Get personalized treatment plans and organic solutions to combat plant diseases effectively.",
+      "healthyFoodDatabase": "Healthy Food Database",
+      "healthyFoodDatabaseDesc": "Search our extensive database of healthy foods and learn about their nutritional benefits.",
+      "preventiveCare": "Preventive Care Tips",
+      "preventiveCareDesc": "Access expert advice on preventive measures to keep your plants disease-free year-round.",
+      "instantResults": "Instant Results",
+      "instantResultsDesc": "Receive disease identification and treatment recommendations in seconds, not days.",
+      "educationalResources": "Educational Resources",
+      "educationalResourcesDesc": "Browse our library of articles and guides about plant health, diseases, and organic gardening.",
+      "keyFeatures": "Key Features",
+      "comprehensiveTools": "AyarCare offers comprehensive tools to identify plant diseases and promote plant health through advanced technology and expert recommendations."
+    },
+    "popularDiseases": "Popular Plant Diseases",
+    "learnAboutDiseases": "Learn about common plant diseases, their symptoms, and treatments.",
+    "diseases": {
+      "powderyMildew": "Powdery Mildew",
+      "powderyMildewDesc": "A fungal disease that affects a wide range of plants, appearing as a white or gray powdery coating on leaves.",
+      "leafSpot": "Leaf Spot",
+      "leafSpotDesc": "Circular spots on leaves caused by various fungi. Spots may be yellow, brown, or black with a defined border.",
+      "tomatoBlight": "Tomato Blight",
+      "tomatoBlightDesc": "A devastating disease that causes dark spots on leaves which quickly enlarge and spread to stems and fruits."
+    },
+    "learnMore": "Learn More",
+    "viewAllDiseases": "View All Diseases",
+    "keepPlantsHealthy": "Ready to keep your plants healthy?",
+    "uploadPlantPhoto": "Upload a photo of your plant to get instant disease identification and treatment recommendations.",
+    "scanPlantNow": "Scan Your Plant Now",
+    "hero": {
+      "plantDiseaseDetection": "Plant Disease Detection & Treatment",
+      "keepPlantsHealthy": "Keep Your Plants Healthy with AI-Powered Disease Detection",
+      "uploadPlantPhoto": "Upload a photo of your plant, and our advanced AI will instantly identify diseases and provide treatment recommendations to keep your garden thriving.",
+      "startScanning": "Start Scanning",
+      "exploreHealthyFoods": "Explore Healthy Foods"
+    },
+    "howItWorks": {
+      "title": "How It Works",
+      "description": "Our simple 4-step process makes plant disease identification and treatment accessible to everyone.",
+      "takePhoto": "Take a Photo",
+      "takePhotoDesc": "Capture a clear image of the affected plant leaf or part showing symptoms of disease.",
+      "aiAnalysis": "AI Analysis",
+      "aiAnalysisDesc": "Our advanced AI analyzes the image using computer vision and machine learning to identify the disease.",
+      "getResults": "Get Results",
+      "getResultsDesc": "Receive instant identification of the disease along with confidence score and visual markers.",
+      "treatmentPlan": "Treatment Plan",
+      "treatmentPlanDesc": "Access detailed treatment recommendations, preventive measures, and organic solutions.",
+      "seeItInAction": "See It In Action",
+      "seeItInActionDesc": "Our advanced computer vision technology can identify over 50 common plant diseases with 95% accuracy. Try it yourself to see how easy it is to diagnose and treat plant problems.",
+      "diseasesIdentified": "Diseases Identified",
+      "accuracyRate": "Accuracy Rate",
+      "processingTime": "Processing Time",
+      "treatmentOptions": "Treatment Options",
+      "plantDiseaseDetectionAlt": "Plant disease detection in action"
+    },
+    "testimonials": {
+      "title": "What Our Users Say",
+      "description": "Discover how AyarCare has helped gardeners, farmers, and plant enthusiasts keep their plants healthy.",
+      "sarahJohnson": {
+        "name": "Sarah Johnson",
+        "role": "Home Gardener",
+        "testimonial": "AyarCare saved my tomato plants! I was about to give up when I discovered this app. It identified the early blight disease and gave me specific treatment recommendations that worked perfectly."
+      },
+      "michaelChen": {
+        "name": "Michael Chen",
+        "role": "Urban Farmer",
+        "testimonial": "As an urban farmer, plant diseases can be devastating to my small operation. AyarCare has become an essential tool in my daily routine. The accuracy and speed of disease detection is impressive."
+      },
+      "emilyRodriguez": {
+        "name": "Emily Rodriguez",
+        "role": "Botanist",
+        "testimonial": "I recommend AyarCare to all my students. It's not only practical for identifying plant diseases but also educational, providing detailed information about causes and prevention methods."
+      }
+    }
+  },
+  "navigation": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "medicines": "Medicines",
+    "resources": "Resources",
+    "scan": "Scan",
+    "search": "Search"
+  },
+  "footer": {
+    "rights": "All rights reserved",
+    "quickLinks": "Quick Links",
+    "resources": "Resources",
+    "blog": "Blog",
+    "diseaseDatabase": "Disease Database",
+    "treatmentGuide": "Treatment Guide",
+    "contact": "Contact",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service",
+    "contactUs": "Contact Us"
+  },
+  "scan": {
+    "title": "Scan Your Plant",
+    "description": "Upload a photo of your plant to identify diseases and get treatment recommendations.",
+    "tips": {
+      "title": "Tips for Better Scan Results",
+      "clearPhotos": {
+        "title": "Clear Photos",
+        "description": "Take well-lit, in-focus photos that clearly show the affected parts of the plant."
+      },
+      "multipleAngles": {
+        "title": "Multiple Angles",
+        "description": "Capture different angles of the symptoms to provide more data for accurate diagnosis."
+      },
+      "includeContext": {
+        "title": "Include Context",
+        "description": "When possible, include some healthy parts of the plant for comparison."
+      }
+    },
+    "expectations": {
+      "title": "What to Expect",
+      "diseaseIdentification": {
+        "title": "Disease Identification",
+        "description": "Our AI system will analyze your photo and identify the most likely plant disease, including the confidence level of the diagnosis."
+      },
+      "diseaseInformation": {
+        "title": "Disease Information",
+        "description": "You'll receive detailed information about the identified disease, including causes, symptoms, and lifecycle."
+      },
+      "treatmentRecommendations": {
+        "title": "Treatment Recommendations",
+        "description": "Get customized treatment plans with both organic and conventional options to combat the disease effectively."
+      },
+      "preventionTips": {
+        "title": "Prevention Tips",
+        "description": "Learn how to prevent the disease from recurring or spreading to other plants in your garden."
+      },
+      "dataDrivenDecisions": "Make data-driven decisions to keep your plants healthy"
+    }
+  },
+  "scanForm": {
+    "uploadPlantImage": "Upload Plant Image",
+    "dragAndDrop": "Drag and drop an image, or click to browse",
+    "supportedFormats": "Supports JPG, PNG, WEBP (max 10MB)",
+    "selectImage": "Select Image",
+    "selectedPlant": "Selected plant",
+    "analyzePlant": "Analyze Plant",
+    "analyzingImage": "Analyzing Image..."
+  },
+  "scanResults": {
+    "title": "Scan Results",
+    "share": "Share",
+    "save": "Save",
+    "confidence": "confidence",
+    "highConfidence": "High confidence",
+    "mediumConfidence": "Medium confidence",
+    "cause": "Cause",
+    "symptoms": "Symptoms",
+    "treatment": {
+      "title": "Treatment",
+      "organic": "Organic Treatment",
+      "conventional": "Conventional Treatment"
+    },
+    "medicine": {
+      "title": "Medicine",
+      "organicOptions": "Organic Medicine Options",
+      "organicDescription": "Natural treatment solutions with minimal environmental impact",
+      "conventionalOptions": "Conventional Medicine Options",
+      "conventionalDescription": "Chemical-based treatments for severe cases",
+      "activeIngredient": "Active Ingredient",
+      "application": "Application",
+      "frequency": "Frequency",
+      "waitingPeriod": "Waiting Period",
+      "precautions": "Precautions",
+      "avoid": "Avoid",
+      "expiry": "Expiry",
+      "noRecommendations": "No medicine recommendations available for this condition."
+    },
+    "prevention": {
+      "title": "Prevention",
+      "tips": "Prevention Tips"
+    },
+    "viewDetailedGuide": "View Detailed Treatment Guide"
+  },
+  "diseaseDisplay": {
+    "diseaseNotFound": "Disease not found",
+    "failedToLoad": "Failed to load disease information"
+  }
+}

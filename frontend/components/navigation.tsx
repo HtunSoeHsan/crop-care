@@ -22,7 +22,7 @@ const Navigation = () => {
     { href: '/search', label: t('search'), icon: Search },
     { href: '/resources', label: t('resources'), icon: Book },
     { href: '/dashboard', label: t('dashboard'), icon: LineChart },
-    { href: '/weather', label: t('weather'), icon: CloudRain },
+    // { href: '/weather', label: t('weather'), icon: CloudRain },
   ];
 
   return (

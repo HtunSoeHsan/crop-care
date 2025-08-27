@@ -71,7 +71,7 @@ out
 
 # Gatsby files
 .cache/
-public
+# public
 
 # Storybook build outputs
 .out
@@ -287,5 +287,5 @@ venv.bak/
 /backend/temp_uploads/
 /backend/processed_images/
 /backend/model_checkpoints/
-/frontend/public/large_assets/
+# /frontend/public/large_assets/
 /mobile/assets/large/
